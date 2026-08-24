@@ -11,3 +11,7 @@
 !cli/**
 !evaluation/
 !evaluation/**
+!agent-client/
+!agent-client/**
+!vscode/
+!vscode/**

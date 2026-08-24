@@ -1,0 +1,89 @@
+{
+  "name": "aethmere-vscode",
+  "displayName": "Aethmere — Local Context",
+  "description": "Save selected project context locally and make it available to the Aethmere Agent Client.",
+  "version": "0.10.0",
+  "publisher": "aethmere",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "keywords": [
+    "Aethmere",
+    "AI",
+    "MCP",
+    "local context",
+    "privacy"
+  ],
+  "activationEvents": [
+    "onView:aethmere.contextView",
+    "onCommand:aethmere.initialize",
+    "onCommand:aethmere.saveSelection",
+    "onCommand:aethmere.openContext",
+    "onCommand:aethmere.copyConnectCommand",
+    "onCommand:aethmere.checkSetup",
+    "onCommand:aethmere.refresh"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aethmere.initialize",
+        "title": "Aethmere: Initialize Local Context"
+      },
+      {
+        "command": "aethmere.saveSelection",
+        "title": "Aethmere: Save Selection as Context"
+      },
+      {
+        "command": "aethmere.openContext",
+        "title": "Aethmere: Open Local Context File"
+      },
+      {
+        "command": "aethmere.copyConnectCommand",
+        "title": "Aethmere: Copy Agent Connection Command"
+      },
+      {
+        "command": "aethmere.checkSetup",
+        "title": "Aethmere: Check Agent Client"
+      },
+      {
+        "command": "aethmere.refresh",
+        "title": "Aethmere: Refresh Context"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "aethmere.contextView",
+          "name": "Aethmere Context"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "aethmere.saveSelection",
+          "when": "editorHasSelection",
+          "group": "navigation@20"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "aethmere.refresh",
+          "when": "view == aethmere.contextView",
+          "group": "navigation"
+        },
+        {
+          "command": "aethmere.openContext",
+          "when": "view == aethmere.contextView",
+          "group": "navigation"
+        }
+      ]
+    }
+  }
+}

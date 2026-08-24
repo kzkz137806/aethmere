@@ -1,17 +1,17 @@
 {
-  "name": "aethmere-cli",
+  "name": "aethmere-agent",
   "version": "0.10.0",
-  "description": "Aethmere public verification CLI for sealed results and local evidence-contract checks.",
+  "description": "Aethmere local agent client: a zero-dependency MCP bridge for user-owned project context.",
   "type": "module",
   "bin": {
-    "aethmere": "bin/aethmere.mjs"
+    "aethmere-agent": "bin/aethmere-agent.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "files": [
     "bin/",
-    "data/",
+    "lib/",
     "README.md",
     "LICENSE.txt"
   ],

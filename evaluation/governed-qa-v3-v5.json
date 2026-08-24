@@ -1,5 +1,5 @@
 {
-  "schema": "aethmere.public-evaluation.v2",
+  "schema": "aethmere.public-evaluation.v3",
   "published_at": "2026-08-24",
   "status": "historical-sealed-results",
   "title": "Aethmere V3 and V5 sealed governed-QA evaluation",
@@ -46,7 +46,28 @@
       },
       "baseline": {
         "type": "local 7B no-memory direct-answer",
+        "comparison_basis": "same sealed V5 questions, languages, and denominator",
+        "cases": 4800,
+        "correct": 1982,
         "failed": 2818,
+        "correct_rate": 0.41291666666666665,
+        "failed_rate": 0.5870833333333333,
+        "languages": {
+          "zh": {
+            "cases": 2400,
+            "correct": 1346,
+            "failed": 1054,
+            "correct_rate": 0.5608333333333333,
+            "failed_rate": 0.43916666666666665
+          },
+          "en": {
+            "cases": 2400,
+            "correct": 636,
+            "failed": 1764,
+            "correct_rate": 0.265,
+            "failed_rate": 0.735
+          }
+        },
         "fixed": 2818,
         "regressed": 0,
         "gross_cure_rate": 1,

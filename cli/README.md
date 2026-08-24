@@ -1,7 +1,7 @@
 # Aethmere public verification CLI
 
 This small, zero-dependency CLI lets you inspect the reviewed V3/V5 sealed
-evaluation aggregate, run the public evidence-ID trial, and check the same
+evaluation aggregate—including the same-question 7B no-memory comparison—run the public evidence-ID trial, and check the same
 contract against your own JSON files. It is deliberately separate from
 Aethmere's private product runtime.
 

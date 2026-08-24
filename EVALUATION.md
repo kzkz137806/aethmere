@@ -1,17 +1,26 @@
 # Public evaluation
 
-Aethmere publishes aggregate results from two historical sealed governed-QA evaluations. The public release contains the totals, method boundary and integrity hashes, but not private questions, prompts or model outputs.
+Aethmere publishes aggregate results from historical sealed governed-QA evaluations. The public release contains totals, method boundaries and integrity hashes, but not private questions, prompts or model outputs.
 
-## Results
+## V5 same-question comparison
+
+The Aethmere V5 run and the local 7B no-memory direct-answer baseline used the same sealed questions, languages and denominator.
+
+| Language | Aethmere V5 | 7B no-memory baseline | Pass-rate difference |
+|---|---:|---:|---:|
+| Chinese | 2,400/2,400 (100.0%) | 1,346/2,400 (56.1%) | +43.9 points |
+| English | 2,400/2,400 (100.0%) | 636/2,400 (26.5%) | +73.5 points |
+| Combined | 4,800/4,800 (100.0%) | 1,982/4,800 (41.3%) | +58.7 points |
+
+The 7B baseline failed 2,818 cases. Aethmere fixed 2,818/2,818 of those failures and regressed on 0 previously correct cases.
+
+## V3 historical run
 
 | Run | Language | Correct | Missing |
 |---|---|---:|---:|
 | V3 | Original sealed set | 2,400/2,400 | 0 |
-| V5 | Chinese | 2,400/2,400 | 0 |
-| V5 | English | 2,400/2,400 | 0 |
 
-Across V5 Chinese and English, the no-memory baseline failed 2,818 cases. Aethmere fixed 2,818/2,818 of those failures and regressed on 0 previously correct cases.
-The combined V5 correctness count is 4,800/4,800.
+V3 is reported separately because the published same-question 7B comparison belongs to V5.
 
 ## Method boundary
 
@@ -21,11 +30,11 @@ The combined V5 correctness count is 4,800/4,800.
 - Missing results, failures, timeouts and answerable abstentions remain in the denominator.
 - The V5 reducer was not amended after freeze, and its recorded question-surface mismatch count is zero.
 
-The machine-readable aggregate is [evaluation/governed-qa-v3-v5.json](evaluation/governed-qa-v3-v5.json). Run `aethmere eval` to inspect the copy bundled with the CLI, or `aethmere doctor --online` to compare the official website and GitHub release hashes.
+The machine-readable aggregate is [evaluation/governed-qa-v3-v5.json](evaluation/governed-qa-v3-v5.json). Run `aethmere eval` to inspect the copy bundled with the verification CLI, or `aethmere doctor --online` to compare the official website and GitHub release hashes.
 
 ## What these results do not claim
 
-This historical sealed evaluation does not bind the current product runtime and does not measure open-world questions, live-model behavior, production accuracy or universal accuracy. It is evidence for the named restricted task only.
+This historical sealed evaluation does not bind the current product runtime, public Agent Client or VS Code plugin and does not measure open-world questions, live-model behavior, production accuracy or universal accuracy. It is evidence for the named restricted task only; historical sealed evidence does not measure open-world performance.
 
 ## Integrity hashes
 
