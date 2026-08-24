@@ -1,6 +1,6 @@
 {
   "name": "aethmere-cli",
-  "version": "0.10.0",
+  "version": "0.10.2",
   "description": "Aethmere public verification CLI for sealed results and local evidence-contract checks.",
   "type": "module",
   "bin": {

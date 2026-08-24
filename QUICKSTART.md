@@ -14,7 +14,7 @@ Studio 可以选择项目、创建和勾选本地上下文。若本机已启动 
 ## 先分清两个命令行工具
 
 - `aethmere-agent`：在项目中保存上下文，并通过 MCP 接给 Codex 或 Claude Code；
-- `aethmere`：只用于查看公开评测、7B 对照和发行哈希。
+- `aethmere`：只用于查看公开评测、受 Aethmere 支持的 7B 模型与同一 7B 无记忆模型的对照，以及发行哈希。
 
 如果你的目标是让 AI 接得上项目，请先安装 `aethmere-agent`。
 
@@ -81,7 +81,7 @@ code --install-extension aethmere-vscode-0.10.0.vsix
 ## 核验公开评测和发行文件
 
 ```bash
-npm install --global https://aethmere.com/downloads/aethmere-cli-0.10.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz
 aethmere --version
 aethmere doctor --online
 aethmere eval

@@ -1,8 +1,14 @@
 {
   "schema": "aethmere.public-evaluation.v3",
-  "published_at": "2026-08-24",
+  "published_at": "2026-08-25",
   "status": "historical-sealed-results",
-  "title": "Aethmere V3 and V5 sealed governed-QA evaluation",
+  "title": "Sealed governed-QA evaluation of the same 7B model with and without Aethmere",
+  "comparison": {
+    "evaluated_system": "local 7B model with Aethmere",
+    "baseline_system": "same local 7B model without memory, direct answer",
+    "same_base_model": true,
+    "same_questions_languages_and_denominator": true
+  },
   "method": {
     "oracle": "deterministic exact-string",
     "slice_count": 8,
@@ -45,7 +51,7 @@
         }
       },
       "baseline": {
-        "type": "local 7B no-memory direct-answer",
+        "type": "same local 7B model without memory, direct answer",
         "comparison_basis": "same sealed V5 questions, languages, and denominator",
         "cases": 4800,
         "correct": 1982,

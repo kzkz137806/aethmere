@@ -64,9 +64,9 @@ function runEvaluation(asJson) {
     console.log(`V5 Chinese     ${publicEvaluation.results.v5.languages.zh.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.languages.zh.cases.toLocaleString("en-US")}`);
     console.log(`V5 English     ${publicEvaluation.results.v5.languages.en.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.languages.en.cases.toLocaleString("en-US")}`);
     console.log("");
-    console.log("Same-question V5 comparison");
-    console.log(`Aethmere        ${publicEvaluation.results.v5.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.cases.toLocaleString("en-US")} (100.0%)`);
-    console.log(`7B no-memory    ${publicEvaluation.results.v5.baseline.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.baseline.cases.toLocaleString("en-US")} (${(publicEvaluation.results.v5.baseline.correct_rate * 100).toFixed(1)}%)`);
+    console.log("Same-model, same-question V5 comparison");
+    console.log(`7B with Aethmere   ${publicEvaluation.results.v5.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.cases.toLocaleString("en-US")} (100.0%)`);
+    console.log(`Same 7B, no memory ${publicEvaluation.results.v5.baseline.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.baseline.cases.toLocaleString("en-US")} (${(publicEvaluation.results.v5.baseline.correct_rate * 100).toFixed(1)}%)`);
     console.log(`  Chinese       ${publicEvaluation.results.v5.baseline.languages.zh.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.baseline.languages.zh.cases.toLocaleString("en-US")} (${(publicEvaluation.results.v5.baseline.languages.zh.correct_rate * 100).toFixed(1)}%)`);
     console.log(`  English       ${publicEvaluation.results.v5.baseline.languages.en.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.baseline.languages.en.cases.toLocaleString("en-US")} (${(publicEvaluation.results.v5.baseline.languages.en.correct_rate * 100).toFixed(1)}%)`);
     console.log(`Recovered       ${publicEvaluation.results.v5.baseline.fixed.toLocaleString("en-US")} / ${publicEvaluation.results.v5.baseline.failed.toLocaleString("en-US")} baseline failures; ${publicEvaluation.results.v5.baseline.regressed} regressions`);

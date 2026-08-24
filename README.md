@@ -9,7 +9,7 @@
 | **Agent Studio 0.10.1（Windows x64）** | 可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
 | **Agent Client 0.10.0** | 本地上下文 + MCP 接入 | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
 | **VS Code 插件 0.10.0** | 保存选中文字、查看本地上下文 | 下载 [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
-| **评测 CLI 0.10.0** | 查看 V3/V5、7B 对照和发行哈希 | `npm install -g https://aethmere.com/downloads/aethmere-cli-0.10.0.tgz` |
+| **评测 CLI 0.10.2** | 查看 V3/V5、受 Aethmere 支持的 7B 模型与同一 7B 无记忆模型的对照 | `npm install -g https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz` |
 
 所有发行文件同时提供 SHA-256。Studio 是未签名的 Windows 便携预览版：请先完整解压 ZIP，再运行 `Aethmere Agent Studio.exe`；Windows 可能显示“未知发布者”。它不会扫描项目，自动 HTTP 只允许本机 `127.0.0.1:11434` 的 Ollama，没有遥测。源码见 [`studio/`](studio/)、[`agent-client/`](agent-client/) 和 [`vscode/`](vscode/)。
 
@@ -47,10 +47,10 @@ V5 中文和英文合计 4,800 题：
 
 | 系统 | 正确 | 正确率 |
 |---|---:|---:|
-| Aethmere V5 | 4,800/4,800 | 100.0% |
-| 本地 7B 无记忆直接回答基线 | 1,982/4,800 | 41.3% |
+| 受 Aethmere 支持的 7B 模型（V5） | 4,800/4,800 | 100.0% |
+| 同一 7B 模型（无记忆、直接回答） | 1,982/4,800 | 41.3% |
 
-中文基线为 1,346/2,400（56.1%），英文基线为 636/2,400（26.5%）。Aethmere 修复了基线的 2,818/2,818 个失败项，对基线原本正确的题 0 回退。评测设计、V3 结果和限制见 [EVALUATION.md](EVALUATION.md)。
+两组使用同一 7B 模型、同一套封存题、相同语言和分母，区别是是否受 Aethmere 支持并使用记忆。无记忆基线的中文结果为 1,346/2,400（56.1%），英文结果为 636/2,400（26.5%）。受 Aethmere 支持的 7B 模型修复了无记忆基线的 2,818/2,818 个失败项，对基线原本正确的题 0 回退。评测设计、V3 结果和限制见 [EVALUATION.md](EVALUATION.md)。
 
 ## 公开边界
 

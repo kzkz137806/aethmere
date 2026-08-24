@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.2 — 2026-08-25
+
+- Corrected every public V5 comparison label to name the same 7B model with Aethmere versus without memory.
+- Kept all V3/V5 counts, denominators and source-receipt hashes unchanged.
+- Released only the verification CLI and aggregate wording update; Agent Client, VS Code and Agent Studio artifacts remain unchanged.
+
 ## 0.10.1 — 2026-08-24
 
 - Added an auditable Windows x64 Agent Studio public preview for managing `.aethmere/context.json` and chatting through a loopback Ollama model.
@@ -11,7 +17,7 @@
 
 - Added a zero-dependency local Agent Client with real MCP handshake, local context management and Codex/Claude Code connection commands.
 - Added a minimal VS Code plugin for saving selected text to the local context store and connecting the current workspace.
-- Published the full same-question V5 7B baseline comparison: Chinese, English and combined correct/total counts and rates.
+- Published the full same-question V5 comparison between a 7B model with Aethmere and the same 7B model without memory: Chinese, English and combined correct/total counts and rates.
 - Kept private service runtime, recall/ranking implementation, internal workflows, prompts, cases and raw outputs outside public artifacts.
 
 ## 0.9.0 — 2026-08-24

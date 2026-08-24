@@ -2,17 +2,17 @@
 
 Aethmere publishes aggregate results from historical sealed governed-QA evaluations. The public release contains totals, method boundaries and integrity hashes, but not private questions, prompts or model outputs.
 
-## V5 same-question comparison
+## V5 same-model, same-question comparison
 
-The Aethmere V5 run and the local 7B no-memory direct-answer baseline used the same sealed questions, languages and denominator.
+Both sides used the same local 7B model, sealed questions, languages and denominator. The evaluated V5 side used the 7B model with Aethmere; the baseline used the same 7B model without memory and answered directly.
 
-| Language | Aethmere V5 | 7B no-memory baseline | Pass-rate difference |
+| Language | 7B model with Aethmere (V5) | Same 7B model without memory | Pass-rate difference |
 |---|---:|---:|---:|
 | Chinese | 2,400/2,400 (100.0%) | 1,346/2,400 (56.1%) | +43.9 points |
 | English | 2,400/2,400 (100.0%) | 636/2,400 (26.5%) | +73.5 points |
 | Combined | 4,800/4,800 (100.0%) | 1,982/4,800 (41.3%) | +58.7 points |
 
-The 7B baseline failed 2,818 cases. Aethmere fixed 2,818/2,818 of those failures and regressed on 0 previously correct cases.
+The same-7B no-memory baseline failed 2,818 cases. The 7B model with Aethmere fixed 2,818/2,818 of those failures and regressed on 0 previously correct cases.
 
 ## V3 historical run
 
@@ -20,7 +20,7 @@ The 7B baseline failed 2,818 cases. Aethmere fixed 2,818/2,818 of those failures
 |---|---|---:|---:|
 | V3 | Original sealed set | 2,400/2,400 | 0 |
 
-V3 is reported separately because the published same-question 7B comparison belongs to V5.
+V3 is reported separately because the published same-model, with/without-Aethmere comparison belongs to V5.
 
 ## Method boundary
 
