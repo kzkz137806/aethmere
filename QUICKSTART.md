@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.8.1/aethmere-cli-0.8.1.tgz
+npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.9.0/aethmere-cli-0.9.0.tgz
 aethmere --version
 ```
 
@@ -16,6 +16,14 @@ aethmere doctor --online
 ```
 
 该命令只读取官网与 GitHub 的公开文件，不发送项目内容。离线检查使用 `aethmere doctor`。
+
+## 查看封存评测
+
+```bash
+aethmere eval
+```
+
+该命令读取 CLI 包内的公开聚合数据，不包含或还原私有题目。方法与限制见 [EVALUATION.md](EVALUATION.md)。
 
 ## 跑公开正反例
 

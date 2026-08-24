@@ -1,0 +1,83 @@
+{
+  "schema": "aethmere.public-evaluation.v2",
+  "published_at": "2026-08-24",
+  "status": "historical-sealed-results",
+  "title": "Aethmere V3 and V5 sealed governed-QA evaluation",
+  "method": {
+    "oracle": "deterministic exact-string",
+    "slice_count": 8,
+    "cases_per_slice": 300,
+    "v5_languages": [
+      "zh",
+      "en"
+    ],
+    "failures_timeouts_and_abstentions_stay_in_denominator": true,
+    "v5_reducer_amended_after_freeze": false,
+    "v5_question_surface_mismatches": 0
+  },
+  "results": {
+    "v3": {
+      "frozen_at": "2026-08-03T22:32:51.479Z",
+      "cases": 2400,
+      "correct": 2400,
+      "missing": 0,
+      "correct_rate": 1,
+      "all_slice_gates_pass": true
+    },
+    "v5": {
+      "frozen_at": "2026-08-04T22:39:20.298Z",
+      "cases": 4800,
+      "correct": 4800,
+      "missing": 0,
+      "correct_rate": 1,
+      "languages": {
+        "zh": {
+          "cases": 2400,
+          "correct": 2400,
+          "missing": 0,
+          "correct_rate": 1
+        },
+        "en": {
+          "cases": 2400,
+          "correct": 2400,
+          "missing": 0,
+          "correct_rate": 1
+        }
+      },
+      "baseline": {
+        "type": "local 7B no-memory direct-answer",
+        "failed": 2818,
+        "fixed": 2818,
+        "regressed": 0,
+        "gross_cure_rate": 1,
+        "net_cure_rate": 1
+      }
+    }
+  },
+  "claim_limits": {
+    "historical_sealed_receipts": true,
+    "binds_current_runtime": false,
+    "open_world": false,
+    "production_accuracy": false,
+    "universal_accuracy": false
+  },
+  "privacy": {
+    "aggregate_only": true,
+    "raw_cases_included": false,
+    "prompts_included": false,
+    "model_outputs_included": false
+  },
+  "integrity": {
+    "v3": {
+      "freeze_manifest_sha256": "a06b572aa022169dea3cc81845a7969f53ae9c6be3dea3e1ddf6a1de43585fad",
+      "main_reduction_sha256": "83d1f1adb92ee4bb30290b7230a116c70f5b16e8afbd09fc5d6d701a89954741"
+    },
+    "v5": {
+      "freeze_manifest_sha256": "8f19ef4fa29e8210e3e905338980c1d2c68f65af05428e6dc5878307ff2e95b0",
+      "main_zh_reduction_sha256": "d0a0828c80e8ae756118fd01821c00ab8bb9c8b4b9579d18430014ba3667a44c",
+      "main_en_reduction_sha256": "10c13d43e5769a118b9762d5a3fc67fb7f33e56cb68026ab20c27928819f3d59",
+      "cure_zh_reduction_sha256": "479ceedddf833c22402fc587fc21c78e57c4d12f6daf3feb87dc2d96ea51d36c",
+      "cure_en_reduction_sha256": "620c265a67a19df441ee3cae2d48a0b8a3f069a39abe79539d5699a86f7becb7"
+    }
+  }
+}

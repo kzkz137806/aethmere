@@ -6,19 +6,21 @@ Aethmere 面向需要长期研究、项目协作和复杂判断的人：减少�
 
 ## 现在就能测试
 
-公开的 `0.8.1` 验证 CLI 不包含私有运行时，也不会上传你的文件。它提供三件可复核的事：
+公开的 `0.9.0` 验证 CLI 不包含私有运行时，也不会上传你的文件。它提供四件可复核的事：
 
+- 查看并核验 V3/V5 封存评测汇总；
 - 运行公开的严格证据 ID 正反例；
 - 用你自己的 context/answer JSON 检查引用是否可见、精确且没有伪造 ID。
 - 核对官网与 GitHub Release 的版本和 SHA-256。
 
 ```bash
-npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.8.1/aethmere-cli-0.8.1.tgz
+npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.9.0/aethmere-cli-0.9.0.tgz
 aethmere doctor --online
+aethmere eval
 aethmere trial
 ```
 
-安装和自测见 [QUICKSTART.md](QUICKSTART.md)。
+安装和自测见 [QUICKSTART.md](QUICKSTART.md)，评测方法与边界见 [EVALUATION.md](EVALUATION.md)。
 
 ## 产品与公开仓的边界
 

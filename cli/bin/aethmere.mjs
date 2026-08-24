@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const packageRoot = path.resolve(here, "..");
 const packageJson = JSON.parse(fs.readFileSync(path.join(packageRoot, "package.json"), "utf8"));
+const evaluationBuffer = fs.readFileSync(path.join(packageRoot, "data", "governed-qa-v3-v5.json"));
+const publicEvaluation = JSON.parse(evaluationBuffer.toString("utf8"));
 const BARE_EVIDENCE_ID = /^[A-Z][A-Z0-9_-]{0,63}$/u;
 
 function hasFlag(args, name) {
@@ -27,10 +29,42 @@ function printHelp() {
   console.log("");
   console.log("Usage:");
   console.log("  aethmere doctor [--online] [--json]");
+  console.log("  aethmere eval [--json]");
   console.log("  aethmere trial [--json]");
   console.log("  aethmere check --context context.json --answer answer.json [--expected E1,E2] [--json]");
   console.log("");
   console.log("The verification commands run locally. --online only fetches public release URLs.");
+}
+
+function evaluationIsValid(value) {
+  return value?.schema === "aethmere.public-evaluation.v2"
+    && value?.status === "historical-sealed-results"
+    && value?.results?.v3?.cases === 2400
+    && value?.results?.v3?.correct === 2400
+    && value?.results?.v5?.cases === 4800
+    && value?.results?.v5?.correct === 4800
+    && value?.results?.v5?.baseline?.failed === 2818
+    && value?.results?.v5?.baseline?.fixed === 2818
+    && value?.results?.v5?.baseline?.regressed === 0
+    && value?.claim_limits?.binds_current_runtime === false
+    && value?.claim_limits?.open_world === false;
+}
+
+function runEvaluation(asJson) {
+  if (!evaluationIsValid(publicEvaluation)) throw new Error("bundled public evaluation aggregate failed validation");
+  if (asJson) {
+    console.log(JSON.stringify(publicEvaluation, null, 2));
+  } else {
+    console.log("Aethmere historical sealed evaluation");
+    console.log(`V3             ${publicEvaluation.results.v3.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v3.cases.toLocaleString("en-US")}`);
+    console.log(`V5 Chinese     ${publicEvaluation.results.v5.languages.zh.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.languages.zh.cases.toLocaleString("en-US")}`);
+    console.log(`V5 English     ${publicEvaluation.results.v5.languages.en.correct.toLocaleString("en-US")} / ${publicEvaluation.results.v5.languages.en.cases.toLocaleString("en-US")}`);
+    console.log(`Baseline fixes ${publicEvaluation.results.v5.baseline.fixed.toLocaleString("en-US")} / ${publicEvaluation.results.v5.baseline.failed.toLocaleString("en-US")}; ${publicEvaluation.results.v5.baseline.regressed} regressions`);
+    console.log("");
+    console.log("Restricted deterministic tasks; historical sealed receipts.");
+    console.log("Not a current-runtime, production, open-world, or universal-accuracy claim.");
+  }
+  return 0;
 }
 
 function normalizeEvidence(context) {
@@ -128,6 +162,8 @@ async function runDoctor(asJson, online) {
   const dependencyFields = ["dependencies", "optionalDependencies", "peerDependencies"];
   const dependencyCount = dependencyFields.reduce((sum, field) => sum + Object.keys(packageJson[field] || {}).length, 0);
   checks.push({ name: "zero-dependency-package", ok: dependencyCount === 0, detail: `${dependencyCount} dependencies` });
+  const bundledEvaluationHash = crypto.createHash("sha256").update(evaluationBuffer).digest("hex");
+  checks.push({ name: "bundled-evaluation", ok: evaluationIsValid(publicEvaluation), detail: `sha256:${bundledEvaluationHash}` });
   if (online) {
     try {
       const manifestBuffer = await fetchPublic("https://aethmere.com/downloads/latest.json");
@@ -136,7 +172,10 @@ async function runDoctor(asJson, online) {
       const manifestOk = manifest.version === packageJson.version
         && manifest.filename === filename
         && /^[a-f0-9]{64}$/u.test(manifest.sha256)
-        && manifest.official_url === `https://aethmere.com/downloads/${filename}`;
+        && manifest.official_url === `https://aethmere.com/downloads/${filename}`
+        && manifest.evaluation_sha256 === bundledEvaluationHash
+        && manifest.evaluation_url === "https://aethmere.com/evaluation/governed-qa-v3-v5.json"
+        && manifest.github_evaluation_url === `https://github.com/kzkz137806/aethmere/releases/download/v${packageJson.version}/governed-qa-v3-v5.json`;
       checks.push({ name: "official-release-manifest", ok: manifestOk, detail: manifestOk ? `${filename} sha256:${manifest.sha256}` : "release manifest mismatch" });
 
       const official = await fetchPublic(manifest.official_url);
@@ -150,6 +189,14 @@ async function runDoctor(asJson, online) {
       const checksumUrl = `https://github.com/kzkz137806/aethmere/releases/download/v${packageJson.version}/aethmere-cli-${packageJson.version}.sha256.txt`;
       const checksum = (await fetchPublic(checksumUrl)).toString("utf8");
       checks.push({ name: "github-checksum", ok: checksum === `${manifest.sha256}  ${filename}\n`, detail: `${Buffer.byteLength(checksum)} bytes` });
+
+      const officialEvaluation = await fetchPublic(manifest.evaluation_url);
+      const officialEvaluationHash = crypto.createHash("sha256").update(officialEvaluation).digest("hex");
+      checks.push({ name: "official-evaluation", ok: officialEvaluationHash === bundledEvaluationHash, detail: `sha256:${officialEvaluationHash}` });
+
+      const githubEvaluation = await fetchPublic(manifest.github_evaluation_url);
+      const githubEvaluationHash = crypto.createHash("sha256").update(githubEvaluation).digest("hex");
+      checks.push({ name: "github-evaluation", ok: githubEvaluationHash === bundledEvaluationHash, detail: `sha256:${githubEvaluationHash}` });
     } catch (error) {
       checks.push({ name: "public-release", ok: false, detail: error.message });
     }
@@ -174,6 +221,8 @@ try {
     printHelp();
   } else if (command === "trial") {
     process.exitCode = runTrial(asJson);
+  } else if (command === "eval") {
+    process.exitCode = runEvaluation(asJson);
   } else if (command === "check") {
     process.exitCode = runCheck(args, asJson);
   } else if (command === "doctor") {
