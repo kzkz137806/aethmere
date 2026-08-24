@@ -1,0 +1,10 @@
+*
+!.gitignore
+!README.md
+!QUICKSTART.md
+!CHANGELOG.md
+!NOTICE.md
+!SECURITY.md
+!LICENSE.txt
+!cli/
+!cli/**
