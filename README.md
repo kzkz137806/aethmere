@@ -1,16 +1,26 @@
 # Aethmere · 识海
 
-把你明确保存的本地项目上下文，通过 MCP 接给 Codex 或 Claude Code。少重复解释，重要内容按需读取，项目资料不必上传给 Aethmere。
+让本机模型、Codex 或 Claude Code 接得上你明确保存的项目上下文。桌面端可直接管理上下文并调用本机 Ollama；CLI 与插件负责把同一份本地资料接入开发工具。项目文件不必上传给 Aethmere。
 
 ## 现在可以下载
 
 | 下载 | 用途 | 安装 |
 |---|---|---|
+| **Agent Studio 0.10.1（Windows x64）** | 可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
 | **Agent Client 0.10.0** | 本地上下文 + MCP 接入 | `npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-agent-0.10.0.tgz` |
 | **VS Code 插件 0.10.0** | 保存选中文字、查看本地上下文 | 下载 [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
 | **评测 CLI 0.10.0** | 查看 V3/V5、7B 对照和发行哈希 | `npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-cli-0.10.0.tgz` |
 
-所有发行文件同时提供 SHA-256。源码见 [`agent-client/`](agent-client/) 和 [`vscode/`](vscode/)；公开客户端与插件均为零第三方依赖，不包含网络请求或遥测。
+所有发行文件同时提供 SHA-256。Studio 是未签名的 Windows 便携预览版：请先完整解压 ZIP，再运行 `Aethmere Agent Studio.exe`；Windows 可能显示“未知发布者”。它不会扫描项目，自动 HTTP 只允许本机 `127.0.0.1:11434` 的 Ollama，没有遥测。源码见 [`studio/`](studio/)、[`agent-client/`](agent-client/) 和 [`vscode/`](vscode/)。
+
+## Windows 桌面端
+
+1. 从 [v0.10.1 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1) 下载 Studio ZIP 和 `.sha256.txt`；
+2. 校验 SHA-256 后完整解压，不要单独移动 EXE；
+3. 双击 `Aethmere Agent Studio.exe`，选择项目并保存上下文；
+4. 如需本机对话，先启动 Ollama 并安装至少一个模型。没有 Ollama 时，上下文管理仍可使用。
+
+Studio 与命令行 Agent Client 使用同一份 `.aethmere/context.json`，可以按需要组合使用。
 
 ## 三步接入
 
@@ -36,7 +46,7 @@ V5 中文和英文合计 4,800 题：
 
 ## 公开边界
 
-这个仓库只承载用户可运行的最小本地客户端、VS Code 插件、验证 CLI、聚合评测和使用说明。Aethmere 的私有服务运行时、内部提示词、召回排序算法、私有评测题、原始模型输出、客户数据和项目资料不在这里。
+这个仓库只承载可公开审计的本地 Studio、Agent Client、VS Code 插件、验证 CLI、聚合评测和使用说明。Aethmere 的私有服务运行时、内部提示词、召回排序算法、私有评测题、原始模型输出、客户数据和项目资料不在这里。
 
 - 官网：[aethmere.com](https://aethmere.com)
 - 下载：[GitHub Releases](https://github.com/kzkz137806/aethmere/releases)

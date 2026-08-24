@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.1 — 2026-08-24
+
+- Added an auditable Windows x64 Agent Studio public preview for managing `.aethmere/context.json` and chatting through a loopback Ollama model.
+- Added a small native launcher that keeps the extracted portable directory unchanged after startup; verified a fresh extracted ZIP before and after launch against 84 artifact hashes.
+- Kept the private service runtime, retrieval/ranking implementation, internal prompts, private evaluations and project material out of the desktop package.
+- Published the Studio as an unsigned portable ZIP with an explicit unknown-publisher notice and SHA-256 checksum; no installer or code-signing claim is made.
+
 ## 0.10.0 — 2026-08-24
 
 - Added a zero-dependency local Agent Client with real MCP handshake, local context management and Codex/Claude Code connection commands.

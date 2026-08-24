@@ -1,0 +1,15 @@
+{
+  "name": "aethmere-agent-studio",
+  "version": "0.10.1",
+  "description": "Aethmere Agent Studio public Windows preview",
+  "private": true,
+  "type": "module",
+  "main": "main.mjs",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "package:win": "node bin/package-win32.mjs",
+    "verify:package": "node bin/verify-package.mjs",
+    "archive:win": "node bin/archive-win32.mjs"
+  },
+  "license": "SEE LICENSE IN ../LICENSE.txt"
+}

@@ -15,3 +15,6 @@
 !agent-client/**
 !vscode/
 !vscode/**
+!studio/
+!studio/**
+studio/dist/

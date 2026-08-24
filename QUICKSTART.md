@@ -1,15 +1,28 @@
 # Quick start
 
+## Windows：先用桌面端
+
+从 [v0.10.1 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1) 下载：
+
+- `aethmere-agent-studio-0.10.1-win32-x64.zip`
+- `aethmere-agent-studio-0.10.1-win32-x64.zip.sha256.txt`
+
+校验后完整解压 ZIP，双击 `Aethmere Agent Studio.exe`。这是未签名的便携预览版，Windows 可能显示“未知发布者”；不要把 EXE 单独移出解压目录。
+
+Studio 可以选择项目、创建和勾选本地上下文。若本机已启动 Ollama，Studio 还可以把你明确勾选的上下文发送给 `127.0.0.1:11434` 上的本机模型；它不会自动读取其他项目文件，也没有遥测。
+
+## 开发工具：安装 Agent Client
+
 需要 Node.js 20 或更高版本。
 
-## 1. 安装 Agent Client
+### 1. 安装
 
 ```bash
 npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-agent-0.10.0.tgz
 aethmere-agent --version
 ```
 
-## 2. 在项目中保存第一条上下文
+### 2. 在项目中保存第一条上下文
 
 ```bash
 cd your-project
@@ -20,7 +33,7 @@ aethmere-agent list
 
 上下文保存在当前项目的 `.aethmere/context.json`。公开客户端没有网络请求或遥测；运行 `aethmere-agent doctor` 可以检查本地状态。
 
-## 3. 接入 Codex 或 Claude Code
+### 3. 接入 Codex 或 Claude Code
 
 ```bash
 aethmere-agent connect --client all
@@ -39,7 +52,7 @@ aethmere-agent connect --client all
 aethmere-agent connect --client all --check
 ```
 
-## 可选：安装 VS Code 插件
+## VS Code 插件
 
 从 [v0.10.0 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.0) 下载 `aethmere-vscode-0.10.0.vsix`，然后运行：
 
@@ -49,7 +62,7 @@ code --install-extension aethmere-vscode-0.10.0.vsix
 
 插件可以把编辑器里选中的文字保存为本地上下文，并显示当前项目已有的条目。它同样没有网络请求或遥测。
 
-## 可选：核验公开评测和发行文件
+## 核验公开评测和发行文件
 
 ```bash
 npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-cli-0.10.0.tgz

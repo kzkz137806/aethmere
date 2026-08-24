@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Aethmere Agent Studio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="sidebar">
+      <header class="brand">
+        <span class="brand-mark">A</span>
+        <span><strong>Aethmere</strong><small>Agent Studio</small></span>
+      </header>
+
+      <section class="project-panel">
+        <p class="section-label">当前项目</p>
+        <button id="choose-project" class="project-button" type="button">
+          <span id="project-name">选择项目文件夹</span>
+          <span aria-hidden="true">↗</span>
+        </button>
+        <p id="project-path" class="project-path">只读取你明确保存的本地上下文</p>
+      </section>
+
+      <section class="context-panel">
+        <div class="section-head">
+          <p class="section-label">项目上下文</p>
+          <button id="new-context" class="icon-button" type="button" aria-label="新建上下文">＋</button>
+        </div>
+        <div id="context-list" class="context-list">
+          <div class="empty-context">选择项目后，在这里保存模型需要记住的信息。</div>
+        </div>
+      </section>
+
+      <footer class="sidebar-footer">
+        <div class="privacy-line"><span></span> 本机运行 · 无遥测</div>
+        <button id="copy-install" class="text-button" type="button">复制 Agent Client 安装命令</button>
+        <button id="open-release" class="text-button" type="button">插件与其他下载</button>
+      </footer>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PUBLIC PREVIEW</p>
+          <h1>让本机模型接得上你的项目。</h1>
+        </div>
+        <div class="model-control">
+          <label for="model-select">本机模型</label>
+          <div class="model-row">
+            <select id="model-select"><option value="">检测 Ollama…</option></select>
+            <button id="refresh-models" class="icon-button" type="button" aria-label="刷新模型">↻</button>
+          </div>
+        </div>
+      </header>
+
+      <div id="notice" class="notice" hidden></div>
+      <section id="conversation" class="conversation" aria-live="polite">
+        <article class="welcome-card">
+          <span class="welcome-orbit" aria-hidden="true"></span>
+          <p class="eyebrow">AETHMERE LOCAL CONTEXT</p>
+          <h2>你决定什么值得被记住。</h2>
+          <p>选择项目，保存几条关键上下文，再勾选要交给本机模型的内容。Studio 不会扫描整个项目，也不会把资料上传到 Aethmere。</p>
+          <div class="steps">
+            <span><b>01</b> 选择项目</span>
+            <span><b>02</b> 保存上下文</span>
+            <span><b>03</b> 开始对话</span>
+          </div>
+        </article>
+      </section>
+
+      <footer class="composer">
+        <div id="selected-context" class="selected-context"><span>未选择上下文</span></div>
+        <div class="composer-row">
+          <textarea id="prompt" rows="1" maxlength="8000" placeholder="问问题，或让本机模型基于已选上下文继续工作…"></textarea>
+          <button id="send" class="send-button" type="button" aria-label="发送">↑</button>
+        </div>
+        <p class="composer-note">对话只发往 127.0.0.1 的 Ollama；项目文件不会被自动读取。</p>
+      </footer>
+    </section>
+  </main>
+
+  <dialog id="context-dialog">
+    <form id="context-form">
+      <div class="dialog-head">
+        <div><p class="eyebrow">LOCAL CONTEXT</p><h2 id="dialog-title">新建上下文</h2></div>
+        <button id="close-dialog" class="icon-button" type="button" aria-label="关闭">×</button>
+      </div>
+      <label>ID<input id="context-id" maxlength="64" required placeholder="PROJECT_GOAL"></label>
+      <label>标题<input id="context-title" maxlength="160" required placeholder="项目目标"></label>
+      <label>内容<textarea id="context-text" maxlength="20000" required rows="8" placeholder="只写入你愿意交给本机模型使用的信息"></textarea></label>
+      <label>标签（逗号分隔）<input id="context-tags" maxlength="240" placeholder="product, decision"></label>
+      <div class="dialog-actions">
+        <button id="delete-context" class="danger-button" type="button" hidden>删除</button>
+        <span></span>
+        <button id="cancel-dialog" class="secondary-button" type="button">取消</button>
+        <button class="primary-button" type="submit">保存到项目</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
