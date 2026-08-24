@@ -11,18 +11,36 @@
 
 Studio 可以选择项目、创建和勾选本地上下文。若本机已启动 Ollama，Studio 还可以把你明确勾选的上下文发送给 `127.0.0.1:11434` 上的本机模型；它不会自动读取其他项目文件，也没有遥测。
 
+## 先分清两个命令行工具
+
+- `aethmere-agent`：在项目中保存上下文，并通过 MCP 接给 Codex 或 Claude Code；
+- `aethmere`：只用于查看公开评测、7B 对照和发行哈希。
+
+如果你的目标是让 AI 接得上项目，请先安装 `aethmere-agent`。
+
 ## 开发工具：安装 Agent Client
 
 需要 Node.js 20 或更高版本。
 
-### 1. 安装
+### 1. 检查 Node.js
 
 ```bash
-npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-agent-0.10.0.tgz
+node --version
+npm --version
+```
+
+如果找不到命令，请先从 Node.js 官网安装 LTS 版本，再关闭并重新打开终端。
+
+### 2. 安装 Agent Client
+
+```bash
+npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
 aethmere-agent --version
 ```
 
-### 2. 在项目中保存第一条上下文
+看到 `Aethmere Agent Client 0.10.0` 就表示安装成功。
+
+### 3. 在项目中保存第一条上下文
 
 ```bash
 cd your-project
@@ -33,9 +51,11 @@ aethmere-agent list
 
 上下文保存在当前项目的 `.aethmere/context.json`。公开客户端没有网络请求或遥测；运行 `aethmere-agent doctor` 可以检查本地状态。
 
-### 3. 接入 Codex 或 Claude Code
+### 4. 先预览，再接入 Codex 或 Claude Code
 
 ```bash
+aethmere-agent doctor
+aethmere-agent connect --client all --check
 aethmere-agent connect --client all
 ```
 
@@ -46,11 +66,7 @@ aethmere-agent connect --client all
 - `aethmere_evidence_check`：检查引用的上下文 ID 是否存在；
 - `aethmere_status`：查看本地连接状态。
 
-只想预览配置变化时运行：
-
-```bash
-aethmere-agent connect --client all --check
-```
+`--check` 只显示将要修改的配置；确认无误后，再运行不带 `--check` 的命令。连接命令会为现有配置保留备份。
 
 ## VS Code 插件
 
@@ -65,13 +81,20 @@ code --install-extension aethmere-vscode-0.10.0.vsix
 ## 核验公开评测和发行文件
 
 ```bash
-npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-cli-0.10.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-cli-0.10.0.tgz
+aethmere --version
 aethmere doctor --online
 aethmere eval
 aethmere trial
 ```
 
 评测边界见 [EVALUATION.md](EVALUATION.md)。
+
+## 常见问题
+
+- **找不到 `aethmere-agent`**：关闭并重新打开终端；Windows PowerShell 若阻止脚本，可运行 `aethmere-agent.cmd --version`，或改用“命令提示符”。
+- **项目资料会不会上传**：不会。Agent Client 没有网络请求或遥测，上下文保存在当前项目的 `.aethmere/context.json`。
+- **换项目怎么办**：进入另一个项目目录后重新运行 `aethmere-agent init`，每个项目维护自己的上下文文件。
 
 ## 卸载
 

@@ -7,9 +7,9 @@
 | 下载 | 用途 | 安装 |
 |---|---|---|
 | **Agent Studio 0.10.1（Windows x64）** | 可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
-| **Agent Client 0.10.0** | 本地上下文 + MCP 接入 | `npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-agent-0.10.0.tgz` |
+| **Agent Client 0.10.0** | 本地上下文 + MCP 接入 | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
 | **VS Code 插件 0.10.0** | 保存选中文字、查看本地上下文 | 下载 [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
-| **评测 CLI 0.10.0** | 查看 V3/V5、7B 对照和发行哈希 | `npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-cli-0.10.0.tgz` |
+| **评测 CLI 0.10.0** | 查看 V3/V5、7B 对照和发行哈希 | `npm install -g https://aethmere.com/downloads/aethmere-cli-0.10.0.tgz` |
 
 所有发行文件同时提供 SHA-256。Studio 是未签名的 Windows 便携预览版：请先完整解压 ZIP，再运行 `Aethmere Agent Studio.exe`；Windows 可能显示“未知发布者”。它不会扫描项目，自动 HTTP 只允许本机 `127.0.0.1:11434` 的 Ollama，没有遥测。源码见 [`studio/`](studio/)、[`agent-client/`](agent-client/) 和 [`vscode/`](vscode/)。
 
@@ -22,12 +22,20 @@
 
 Studio 与命令行 Agent Client 使用同一份 `.aethmere/context.json`，可以按需要组合使用。
 
-## 三步接入
+## 命令行接入 Codex 或 Claude Code
+
+需要 Node.js 20 或更高版本。`aethmere-agent` 才是智能体接入客户端；`aethmere` 只是评测验证工具。
 
 ```bash
+node --version
+npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
+aethmere-agent --version
 cd your-project
 aethmere-agent init
 aethmere-agent add --id PROJECT_GOAL --title "项目目标" --text "写入你希望 AI 长期接得上的背景"
+aethmere-agent list
+aethmere-agent doctor
+aethmere-agent connect --client all --check
 aethmere-agent connect --client all
 ```
 
