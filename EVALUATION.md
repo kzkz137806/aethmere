@@ -22,6 +22,31 @@ The same-7B no-memory baseline failed 2,818 cases. The 7B model with Aethmere fi
 
 V3 is reported separately because the published same-model, with/without-Aethmere comparison belongs to V5.
 
+## Peer engineering evidence audit (2026-08-25)
+
+Each product was installed in an isolated environment and checked against frozen contracts. The score below measures evidence maturity against Aethmere's 18-dimension target profile; it is **not an overall product score or industry ranking**. Product surfaces are not fully isomorphic, so an unsupported or non-comparable cell is not silently converted into a failure.
+
+| Evaluated product snapshot | Target-profile evidence maturity (max 100) |
+|---|---:|
+| Aethmere (2026-08-25 source snapshot) | 68.75 |
+| Graphiti 0.29.3 | 41.50 |
+| Letta Code 0.30.29 | 21.00 |
+| Mem0 2.0.18 | 36.50 |
+| MemOS 2.0.31 | 39.75 |
+
+Evidence qualification status: Aethmere project evidence **17/18**; peer-isolated evidence **6/18**; independent reproduction evidence **0/18**; industry-leading evidence **0/18**.
+
+The following slices had sufficiently aligned contracts for a direct engineering comparison:
+
+| Frozen slice | Aethmere | Graphiti 0.29.3 | Letta Code 0.30.29 | Mem0 2.0.18 | MemOS 2.0.31 |
+|---|---:|---:|---:|---:|---:|
+| Lifecycle contracts | 6/6 | 5/6 | 3/6* | 5/6 | 4/6 |
+| Frozen retrieval semantics (10 cases) | 10/10 | 10/10 | N/A | 9/10 | 10/10 |
+| Capacity at 1/8/32 (150 checks) | 150/150 | 150/150 | N/A | 147/150 | 150/150 |
+| Strict soak | 7,500/7,500; passed | offer-timing gate failed | N/A | 5,771 late timeouts | offer-timing gate failed |
+
+\* The Letta Code lifecycle result includes unsupported cells. Graphiti's two tested backends count as one product. Slice counts are not additive. These results describe the named versions, selected surfaces and test snapshot only; they do not establish overall product quality, market position or future-version performance. Third-party names and trademarks belong to their respective owners, and their appearance here does not imply affiliation or endorsement.
+
 ## Method boundary
 
 - Eight fixed task slices with 300 cases per slice and language.
