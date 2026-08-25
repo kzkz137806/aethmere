@@ -28,13 +28,15 @@ Each product was installed in an isolated environment and checked against frozen
 
 | Evaluated product snapshot | Target-profile evidence maturity (max 100) |
 |---|---:|
-| Aethmere (2026-08-25 source snapshot) | 68.75 |
+| Aethmere (2026-08-25 source snapshot) | 70.75 |
 | Graphiti 0.29.3 | 41.50 |
 | Letta Code 0.30.29 | 21.00 |
 | Mem0 2.0.18 | 36.50 |
 | MemOS 2.0.31 | 39.75 |
 
-Evidence qualification status: Aethmere project evidence **17/18**; peer-isolated evidence **6/18**; independent reproduction evidence **0/18**; industry-leading evidence **0/18**.
+Current scoped status: Aethmere closes its internal engineering gate on **18/18** dimensions and has peer-isolated implementation evidence on **6/18** dimensions. Separately, a different operator completed two fresh runs on an independent physical Apple Silicon Mac: **80/80 test cells** and **40/40 retained rejection controls** passed. Platform-side and offline value-free verifiers each accepted **52/52** checked fields, and the adversarial adjudicator passed **8/8** checks.
+
+Because this is a public, self-authored synthetic benchmark, the result is described as cross-operator, cross-host reproducibility. It is not third-party replication, a hidden or held-out evaluation, production-SLA evidence, proof of industry leadership or an overall product ranking.
 
 The following slices had sufficiently aligned contracts for a direct engineering comparison:
 
