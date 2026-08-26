@@ -1,6 +1,7 @@
 *
 !.gitignore
 !README.md
+!README.zh-CN.md
 !QUICKSTART.md
 !CHANGELOG.md
 !EVALUATION.md
