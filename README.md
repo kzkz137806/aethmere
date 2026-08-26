@@ -1,30 +1,32 @@
-# Aethmere · 识海
+# Aethmere · 识宙
 
-让本机模型、Codex 或 Claude Code 接得上你明确保存的项目上下文。桌面端可直接管理上下文并调用本机 Ollama；CLI 与插件负责把同一份本地资料接入开发工具。项目文件不必上传给 Aethmere。
+**English** | [简体中文](README.zh-CN.md)
 
-## 现在可以下载
+Aethmere helps local models, Codex, and Claude Code continue from the project context you explicitly save. The desktop app manages context and can chat through local Ollama models; the CLI and editor extension connect the same local material to your development tools. Your project files do not need to be uploaded to Aethmere.
 
-| 下载 | 用途 | 安装 |
+## Downloads
+
+| Download | Purpose | Install |
 |---|---|---|
-| **Agent Studio 0.10.1（Windows x64）** | 可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
-| **Agent Client 0.10.0** | 本地上下文 + MCP 接入 | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
-| **VS Code 插件 0.10.0** | 保存选中文字、查看本地上下文 | 下载 [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
-| **评测 CLI 0.10.2** | 查看 V3/V5、受 Aethmere 支持的 7B 模型与同一 7B 无记忆模型的对照 | `npm install -g https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz` |
+| **Agent Studio 0.10.1 (Windows x64)** | Visual context management and local Ollama chat | Download [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
+| **Agent Client 0.10.0** | Local context and MCP integration | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
+| **VS Code extension 0.10.0** | Save selected text and inspect local context | Download [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
+| **Evaluation CLI 0.10.2** | Inspect V3/V5 comparisons between an Aethmere-supported 7B model and the same 7B model without memory | `npm install -g https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz` |
 
-所有发行文件同时提供 SHA-256。Studio 是未签名的 Windows 便携预览版：请先完整解压 ZIP，再运行 `Aethmere Agent Studio.exe`；Windows 可能显示“未知发布者”。它不会扫描项目，自动 HTTP 只允许本机 `127.0.0.1:11434` 的 Ollama，没有遥测。源码见 [`studio/`](studio/)、[`agent-client/`](agent-client/) 和 [`vscode/`](vscode/)。
+Every release file includes a SHA-256 checksum. Studio is an unsigned portable Windows preview: extract the complete ZIP before running `Aethmere Agent Studio.exe`; Windows may display an “Unknown publisher” warning. It does not scan projects, its automatic HTTP access is limited to Ollama on local `127.0.0.1:11434`, and it has no telemetry. Source is available in [`studio/`](studio/), [`agent-client/`](agent-client/), and [`vscode/`](vscode/).
 
-## Windows 桌面端
+## Windows desktop app
 
-1. 从 [v0.10.1 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1) 下载 Studio ZIP 和 `.sha256.txt`；
-2. 校验 SHA-256 后完整解压，不要单独移动 EXE；
-3. 双击 `Aethmere Agent Studio.exe`，选择项目并保存上下文；
-4. 如需本机对话，先启动 Ollama 并安装至少一个模型。没有 Ollama 时，上下文管理仍可使用。
+1. Download the Studio ZIP and `.sha256.txt` from the [v0.10.1 release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1).
+2. Verify the SHA-256 checksum, then extract the complete archive instead of moving the EXE by itself.
+3. Run `Aethmere Agent Studio.exe`, select a project, and save context.
+4. To chat with a local model, start Ollama and install at least one model. Context management remains available without Ollama.
 
-Studio 与命令行 Agent Client 使用同一份 `.aethmere/context.json`，可以按需要组合使用。
+Studio and the command-line Agent Client share the same `.aethmere/context.json`, so you can use either or both.
 
-## 命令行接入 Codex 或 Claude Code
+## Connect Codex or Claude Code from the command line
 
-需要 Node.js 20 或更高版本。`aethmere-agent` 才是智能体接入客户端；`aethmere` 只是评测验证工具。
+Node.js 20 or later is required. `aethmere-agent` is the agent integration client; `aethmere` is the evaluation and verification tool.
 
 ```bash
 node --version
@@ -32,31 +34,31 @@ npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
 aethmere-agent --version
 cd your-project
 aethmere-agent init
-aethmere-agent add --id PROJECT_GOAL --title "项目目标" --text "写入你希望 AI 长期接得上的背景"
+aethmere-agent add --id PROJECT_GOAL --title "Project goal" --text "Add the background you want your AI to retain"
 aethmere-agent list
 aethmere-agent doctor
 aethmere-agent connect --client all --check
 aethmere-agent connect --client all
 ```
 
-重启 Codex 或 Claude Code 后，智能体可以通过 MCP 列出和读取当前项目的本地上下文。完整说明见 [QUICKSTART.md](QUICKSTART.md)。
+After restarting Codex or Claude Code, the agent can list and read the current project's local context through MCP. See [QUICKSTART.md](QUICKSTART.md) for the complete guide.
 
-## 同题封存评测
+## Sealed same-question evaluation
 
-V5 中文和英文合计 4,800 题：
+V5 contains 4,800 Chinese and English test items in total:
 
-| 系统 | 正确 | 正确率 |
+| System | Correct | Accuracy |
 |---|---:|---:|
-| 受 Aethmere 支持的 7B 模型（V5） | 4,800/4,800 | 100.0% |
-| 同一 7B 模型（无记忆、直接回答） | 1,982/4,800 | 41.3% |
+| 7B model with Aethmere support (V5) | 4,800/4,800 | 100.0% |
+| The same 7B model without memory, answering directly | 1,982/4,800 | 41.3% |
 
-两组使用同一 7B 模型、同一套封存题、相同语言和分母，区别是是否受 Aethmere 支持并使用记忆。无记忆基线的中文结果为 1,346/2,400（56.1%），英文结果为 636/2,400（26.5%）。受 Aethmere 支持的 7B 模型修复了无记忆基线的 2,818/2,818 个失败项，对基线原本正确的题 0 回退。评测设计、V3 结果和限制见 [EVALUATION.md](EVALUATION.md)。
+Both groups use the same 7B model, sealed items, languages, and denominator; the difference is whether Aethmere support and memory are used. The no-memory baseline scores 1,346/2,400 (56.1%) in Chinese and 636/2,400 (26.5%) in English. The Aethmere-supported model repairs all 2,818/2,818 baseline failures with zero regressions on the items the baseline originally answered correctly. Evaluation design, V3 results, and limitations are documented in [EVALUATION.md](EVALUATION.md).
 
-## 原生能力 18 维独立设备盲测（V5）
+## Independent-device blind test across 18 native capabilities (V5)
 
-2026-08-26，由不同操作者在独立物理 Apple Silicon Mac 上，将五个锁定版本放入统一 18 维合同，使用全新实例完成两轮测试。每轮 90 格，共核对 180 格；所有 FAIL、FLAKY 和 N/A 都保留。稳定 PASS 要求同一格两轮都通过且语义一致。
+On 2026-08-26, a different operator tested five locked product versions on an independent physical Apple Silicon Mac under one 18-dimension contract. Two runs produced 180 checked cells in total; all FAIL, FLAKY, and N/A outcomes are retained. A stable PASS requires the same cell to pass with matching semantics in both runs.
 
-| 锁定产品版本 | 稳定 PASS / 适用维度 | FAIL | FLAKY | N/A |
+| Locked product version | Stable PASS / applicable dimensions | FAIL | FLAKY | N/A |
 |---|---:|---:|---:|---:|
 | **Aethmere 0.7.0 (`2c1df71`)** | **18/18** | **0** | **0** | **0** |
 | Graphiti 0.29.3 | 1/16 | 14 | 1 | 2 |
@@ -64,14 +66,14 @@ V5 中文和英文合计 4,800 题：
 | Mem0 2.0.18 | 12/16 | 3 | 1 | 2 |
 | MemOS 2.0.30 | 13/18 | 5 | 0 | 0 |
 
-Aethmere 两轮均为 18/18，在本次锁定矩阵中的稳定通过数与适用维度通过率均最高。Graphiti 的 14 个稳定 FAIL 都表示原生操作未在锁定时限内完成，不能据此断言功能不存在。协议校验通过，但五产品矩阵仍有非 PASS 项，因此整体 `capability_all_passed` 如实为 `false`；这不表示 Aethmere 未通过。两轮计数、完整性哈希、方法和不可外推边界见 [EVALUATION.md](EVALUATION.md)。
+Aethmere scores 18/18 in both runs and has the highest stable-pass count and applicable-dimension pass rate in this locked matrix. Graphiti's 14 stable FAIL outcomes mean that its native operations did not complete within the locked time limit; they do not establish that the functions can never be performed. Protocol verification passes, while the five-product matrix still contains non-PASS cells, so the aggregate `capability_all_passed` value is correctly `false`; this does not mean that Aethmere failed. Counts, integrity hashes, method, and limits on generalization are available in [EVALUATION.md](EVALUATION.md).
 
-## 公开边界
+## Public scope
 
-这个仓库只承载可公开审计的本地 Studio、Agent Client、VS Code 插件、验证 CLI、聚合评测和使用说明。Aethmere 的私有服务运行时、内部提示词、召回排序算法、私有评测题、原始模型输出、客户数据和项目资料不在这里。
+This repository contains the publicly auditable local Studio, Agent Client, VS Code extension, verification CLI, aggregate evaluations, and usage documentation. Aethmere's private service runtime, internal prompts, retrieval-ranking algorithms, private evaluation items, raw model outputs, customer data, and project materials are not included.
 
-- 官网：[aethmere.com](https://aethmere.com)
-- 下载：[GitHub Releases](https://github.com/kzkz137806/aethmere/releases)
-- 私密安全报告：[GitHub private vulnerability reporting](https://github.com/kzkz137806/aethmere/security/advisories/new)
+- Website: [aethmere.com](https://aethmere.com)
+- Downloads: [GitHub Releases](https://github.com/kzkz137806/aethmere/releases)
+- Private security reports: [GitHub private vulnerability reporting](https://github.com/kzkz137806/aethmere/security/advisories/new)
 
-许可范围见 [LICENSE.txt](LICENSE.txt)。
+See [LICENSE.txt](LICENSE.txt) for license terms.
