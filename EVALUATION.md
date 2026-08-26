@@ -22,34 +22,39 @@ The same-7B no-memory baseline failed 2,818 cases. The 7B model with Aethmere fi
 
 V3 is reported separately because the published same-model, with/without-Aethmere comparison belongs to V5.
 
-## Peer engineering evidence audit (2026-08-25)
+## Native-capability blind run V5 (2026-08-26)
 
-Each product was installed in an isolated environment and checked against frozen contracts. The score below measures evidence maturity against Aethmere's 18-dimension target profile; it is **not an overall product score or industry ranking**. Product surfaces are not fully isomorphic, so an unsupported or non-comparable cell is not silently converted into a failure.
+A different operator ran the locked V5 package on an independent physical Apple Silicon Mac. Five exact product versions were exercised against one 18-dimension contract in two fresh-process attempts: 90 cells per attempt and 180 checked cells in total. A stable PASS requires both attempts to pass with equal semantics. N/A is excluded from the applicable-dimension denominator; FAIL and FLAKY are never converted into passes.
 
-| Evaluated product snapshot | Target-profile evidence maturity (max 100) |
-|---|---:|
-| Aethmere (2026-08-25 source snapshot) | 70.75 |
-| Graphiti 0.29.3 | 41.50 |
-| Letta Code 0.30.29 | 21.00 |
-| Mem0 2.0.18 | 36.50 |
-| MemOS 2.0.31 | 39.75 |
+| Locked product identity | Stable PASS / applicable | FAIL | FLAKY | N/A |
+|---|---:|---:|---:|---:|
+| **Aethmere 0.7.0 (`2c1df71712f1b0d006593f7a794ace187bb709f5`)** | **18/18** | **0** | **0** | **0** |
+| Graphiti 0.29.3 | 1/16 | 14 | 1 | 2 |
+| Letta Code 0.30.29 | 13/17 | 4 | 0 | 1 |
+| Mem0 2.0.18 | 12/16 | 3 | 1 | 2 |
+| MemOS 2.0.30 | 13/18 | 5 | 0 | 0 |
 
-Current scoped status: Aethmere closes its internal engineering gate on **18/18** dimensions and has peer-isolated implementation evidence on **6/18** dimensions. Separately, a different operator completed two fresh runs on an independent physical Apple Silicon Mac: **80/80 test cells** and **40/40 retained rejection controls** passed. Platform-side and offline value-free verifiers each accepted **52/52** checked fields, and the adversarial adjudicator passed **8/8** checks.
+Aethmere passed all 18 dimensions in both attempts. In this locked matrix it has both the highest stable-pass count and the highest applicable-dimension pass rate. The 14 stable Graphiti failures were locked-timeout outcomes: the native operation did not complete within the fixed time limit. They are not claims that the corresponding feature is absent.
 
-Because this is a public, self-authored synthetic benchmark, the result is described as cross-operator, cross-host reproducibility. It is not third-party replication, a hidden or held-out evaluation, production-SLA evidence, proof of industry leadership or an overall product ranking.
+| Result layer | PASS | FAIL | FLAKY | N/A |
+|---|---:|---:|---:|---:|
+| Attempt 1 | 57 | 28 | — | 5 |
+| Attempt 2 | 58 | 27 | — | 5 |
+| Cross-attempt stable classification | 57 | 26 | 2 | 5 |
 
-The following slices had sufficiently aligned contracts for a direct engineering comparison:
+The protocol verifier reported `accepted: true`, `handoff_eligible: true`, and `capability_run_valid: true`. It also reported `capability_all_passed: false` because that field covers the full five-product matrix and the matrix retains non-PASS outcomes; it does not mean Aethmere failed.
 
-| Frozen slice | Aethmere | Graphiti 0.29.3 | Letta Code 0.30.29 | Mem0 2.0.18 | MemOS 2.0.31 |
-|---|---:|---:|---:|---:|---:|
-| Lifecycle contracts | 6/6 | 5/6 | 3/6* | 5/6 | 4/6 |
-| Frozen retrieval semantics (10 cases) | 10/10 | 10/10 | N/A | 9/10 | 10/10 |
-| Capacity at 1/8/32 (150 checks) | 150/150 | 150/150 | N/A | 147/150 | 150/150 |
-| Strict soak | 7,500/7,500; passed | offer-timing gate failed | N/A | 5,771 late timeouts | offer-timing gate failed |
+| Native-capability artifact | SHA-256 |
+|---|---|
+| V5 package lock | `34509eb26e47ba6087f4cfd9314a61fe11161c385bccf07f29e45d152723e2ba` |
+| Runtime configuration commitment | `038dc726cdb2a9cbab5a977165c35a466fa5b39ca6e4d03327e2623f180f0444` |
+| Cross-attempt semantic commitment | `043537e855ba5e098fb8088fe25e8131e8555a6e05f8dbf0c4af9601be71a013` |
+| Return receipt | `95ce03255bbe91433daf2216b37e89d5dfa2667cf637ed5548fb5e5a6164d7f1` |
+| Return verification | `b8ec979d9fc0866de4c2caac4a64e78bbf7a89a08612d6a9c6e4c3f72b63db0b` |
 
-\* The Letta Code lifecycle result includes unsupported cells. Graphiti's two tested backends count as one product. Slice counts are not additive. These results describe the named versions, selected surfaces and test snapshot only; they do not establish overall product quality, market position or future-version performance. Third-party names and trademarks belong to their respective owners, and their appearance here does not imply affiliation or endorsement.
+This is an owner-run, cross-operator and cross-host result, not third-party certification. It applies only to the named versions, fixed contract, synthetic inputs and locked runtime limits. It does not establish open-world superiority, future-version behavior, production reliability, a service-level guarantee or a universal industry ranking. Third-party names and trademarks belong to their respective owners; their appearance does not imply affiliation or endorsement.
 
-## Method boundary
+## Governed-QA method boundary
 
 - Eight fixed task slices with 300 cases per slice and language.
 - Generation-time deterministic exact-string answers; no open-ended judge was used.
