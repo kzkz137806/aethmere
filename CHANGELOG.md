@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — 2026-08-26
+
+- Restored the full 15-dimension competitive scorecard with unchanged 100-point weights.
+- Recalculated the ten directly covered dimensions using the locked V5 stable native outcomes while retaining first-party documented evidence for the five uncovered skill and growth dimensions.
+- Published the complete matrix, weight sensitivity and explicit non-universal-ranking boundary; no client artifact or historical V3/V5 result changed.
+
 ## 0.10.2 — 2026-08-25
 
 - Corrected every public V5 comparison label to name the same 7B model with Aethmere versus without memory.
