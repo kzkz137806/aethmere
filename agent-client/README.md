@@ -1,6 +1,6 @@
-# Aethmere Agent Client
+# Aethmere CLI (`aethmere-agent`)
 
-把你明确保存的项目上下文，通过本地 MCP 接给 Codex 或 Claude Code。资料保存在当前项目的 `.aethmere/context.json`；客户端没有网络请求代码，也不会上传项目文件。
+这是给用户安装的 Aethmere 产品 CLI。它把你明确保存的项目上下文，通过本地 MCP 接给 Codex 或 Claude Code。资料保存在当前项目的 `.aethmere/context.json`；客户端没有网络请求代码，也不会上传项目文件。另一个 `aethmere` 命令只是公开评测复核工具，不是本产品入口。
 
 ## 安装
 

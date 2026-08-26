@@ -2,20 +2,34 @@
 
 [English](README.md) | **简体中文**
 
-让本机模型、Codex 或 Claude Code 接得上你明确保存的项目上下文。桌面端可直接管理上下文并调用本机 Ollama；CLI 与插件负责把同一份本地资料接入开发工具。项目文件不必上传给 Aethmere。
+让 Codex 或 Claude Code 接得上你明确保存的本地项目上下文。给用户使用的主命令是 **`aethmere-agent`**：它把你主动选择的上下文保存在各项目内，并通过 MCP 接入开发工具。桌面端与 VS Code 插件只是同一份本地上下文的可选界面；项目文件不必上传给 Aethmere。
 
-## 现在可以下载
+另一个 **`aethmere`** 命令只用于复核公开评测，不是产品 CLI，也不是日常使用 Aethmere 的必需组件。
+
+## 安装 Aethmere CLI
+
+需要 Node.js 20 或更高版本。
+
+```bash
+npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
+aethmere-agent --version
+cd your-project
+aethmere-agent init
+```
+
+然后按[五分钟快速开始](QUICKSTART.md)保存项目上下文，并接入 Codex 或 Claude Code。
+
+## 产品下载
 
 | 下载 | 用途 | 安装 |
 |---|---|---|
-| **Agent Studio 0.10.1（Windows x64）** | 可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
-| **Agent Client 0.10.0** | 本地上下文 + MCP 接入 | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
+| **Aethmere CLI 0.10.0（`aethmere-agent`）** | 保存本地项目上下文，并通过 MCP 接入 Codex 或 Claude Code | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
+| **Agent Studio 0.10.1（Windows x64）** | 可选的可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
 | **VS Code 插件 0.10.0** | 保存选中文字、查看本地上下文 | 下载 [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
-| **评测 CLI 0.10.2** | 查看 V3/V5、受 Aethmere 支持的 7B 模型与同一 7B 无记忆模型的对照 | `npm install -g https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz` |
 
 所有发行文件同时提供 SHA-256。Studio 是未签名的 Windows 便携预览版：请先完整解压 ZIP，再运行 `Aethmere Agent Studio.exe`；Windows 可能显示“未知发布者”。它不会扫描项目，自动 HTTP 只允许本机 `127.0.0.1:11434` 的 Ollama，没有遥测。源码见 [`studio/`](studio/)、[`agent-client/`](agent-client/) 和 [`vscode/`](vscode/)。
 
-## Windows 桌面端
+## Windows 桌面端（可选）
 
 1. 从 [v0.10.1 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1) 下载 Studio ZIP 和 `.sha256.txt`；
 2. 校验 SHA-256 后完整解压，不要单独移动 EXE；
@@ -26,7 +40,7 @@ Studio 与命令行 Agent Client 使用同一份 `.aethmere/context.json`，可�
 
 ## 命令行接入 Codex 或 Claude Code
 
-需要 Node.js 20 或更高版本。`aethmere-agent` 才是智能体接入客户端；`aethmere` 只是评测验证工具。
+需要 Node.js 20 或更高版本。`aethmere-agent` 就是用户安装、用于项目接入的 Aethmere CLI。
 
 ```bash
 node --version
@@ -82,9 +96,20 @@ V12 已撤回：它把专家判断的文档底分与幅度很小的原生实测�
 
 Aethmere 两轮均为 18/18，在本次锁定矩阵中的稳定通过数与适用维度通过率均最高。Graphiti 的 14 个稳定 FAIL 都表示原生操作未在锁定时限内完成，不能据此断言功能不存在。协议校验通过，但五产品矩阵仍有非 PASS 项，因此整体 `capability_all_passed` 如实为 `false`；这不表示 Aethmere 未通过。两轮计数、完整性哈希、方法和不可外推边界见 [EVALUATION.md](EVALUATION.md)。
 
+## 可选的评测复核工具
+
+单独版本化的 `aethmere` 命令只用于复核公开聚合评测与发行文件完整性。仅在你确实要审计这些公开凭据时安装：
+
+```bash
+npm install --global https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz
+aethmere eval
+```
+
+这个复核工具不提供项目记忆或 MCP 接入。日常使用请安装上方产品下载表里的 `aethmere-agent`。
+
 ## 公开边界
 
-这个仓库只承载可公开审计的本地 Studio、Agent Client、VS Code 插件、验证 CLI、聚合评测和使用说明。Aethmere 的私有服务运行时、内部提示词、召回排序算法、私有评测题、原始模型输出、客户数据和项目资料不在这里。
+这个仓库的主产品入口是可公开审计的本地 Aethmere CLI（`aethmere-agent`），并提供可选的 Studio 与 VS Code 界面。另附独立的评测复核工具、聚合评测及说明用于复现，但它们不是产品入口。Aethmere 的私有服务运行时、内部提示词、召回排序算法、私有评测题、原始模型输出、客户数据和项目资料不在这里。
 
 - 官网：[aethmere.com](https://aethmere.com)
 - 下载：[GitHub Releases](https://github.com/kzkz137806/aethmere/releases)

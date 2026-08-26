@@ -1,24 +1,8 @@
 # Quick start
 
-## Windows：先用桌面端
+## 安装给用户用的 Aethmere CLI
 
-从 [v0.10.1 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1) 下载：
-
-- `aethmere-agent-studio-0.10.1-win32-x64.zip`
-- `aethmere-agent-studio-0.10.1-win32-x64.zip.sha256.txt`
-
-校验后完整解压 ZIP，双击 `Aethmere Agent Studio.exe`。这是未签名的便携预览版，Windows 可能显示“未知发布者”；不要把 EXE 单独移出解压目录。
-
-Studio 可以选择项目、创建和勾选本地上下文。若本机已启动 Ollama，Studio 还可以把你明确勾选的上下文发送给 `127.0.0.1:11434` 上的本机模型；它不会自动读取其他项目文件，也没有遥测。
-
-## 先分清两个命令行工具
-
-- `aethmere-agent`：在项目中保存上下文，并通过 MCP 接给 Codex 或 Claude Code；
-- `aethmere`：只用于查看公开评测、受 Aethmere 支持的 7B 模型与同一 7B 无记忆模型的对照，以及发行哈希。
-
-如果你的目标是让 AI 接得上项目，请先安装 `aethmere-agent`。
-
-## 开发工具：安装 Agent Client
+**`aethmere-agent` 才是产品 CLI**：它在项目中保存你明确选择的上下文，并通过 MCP 接给 Codex 或 Claude Code。另一个 `aethmere` 命令只是可选的公开评测复核工具，不提供项目记忆或 MCP 接入。
 
 需要 Node.js 20 或更高版本。
 
@@ -68,6 +52,17 @@ aethmere-agent connect --client all
 
 `--check` 只显示将要修改的配置；确认无误后，再运行不带 `--check` 的命令。连接命令会为现有配置保留备份。
 
+## Windows 桌面端（可选）
+
+如果你更喜欢图形界面，可以从 [v0.10.1 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1) 下载：
+
+- `aethmere-agent-studio-0.10.1-win32-x64.zip`
+- `aethmere-agent-studio-0.10.1-win32-x64.zip.sha256.txt`
+
+校验后完整解压 ZIP，双击 `Aethmere Agent Studio.exe`。这是未签名的便携预览版，Windows 可能显示“未知发布者”；不要把 EXE 单独移出解压目录。
+
+Studio 可以选择项目、创建和勾选本地上下文。若本机已启动 Ollama，Studio 还可以把你明确勾选的上下文发送给 `127.0.0.1:11434` 上的本机模型；它不会自动读取其他项目文件，也没有遥测。
+
 ## VS Code 插件
 
 从 [v0.10.0 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.0) 下载 `aethmere-vscode-0.10.0.vsix`，然后运行：
@@ -78,7 +73,9 @@ code --install-extension aethmere-vscode-0.10.0.vsix
 
 插件可以把编辑器里选中的文字保存为本地上下文，并显示当前项目已有的条目。它同样没有网络请求或遥测。
 
-## 核验公开评测和发行文件
+## 可选：核验公开评测和发行文件
+
+下面的 `aethmere` 是单独的评测复核工具。正常使用 Aethmere 不需要安装它。
 
 ```bash
 npm install --global https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz

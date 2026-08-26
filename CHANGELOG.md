@@ -2,6 +2,7 @@
 
 ## Unreleased — 2026-08-26
 
+- Restored the user-facing `aethmere-agent` CLI as the GitHub product entry point and moved the separately versioned `aethmere` benchmark verifier out of the primary download path.
 - Replaced the V12 hybrid documentation/native scorecard with the evidence-first V13 score: `10 × stable PASS ÷ 18`.
 - Published the complete D01–D18 two-run matrix, shared ranks, applicable-dimension counts, and explicit owner-run/non-SLA boundaries.
 - Withdrew the subjective documentation baselines and weight profiles because they could rank a lower native result above a higher one; no client artifact or historical V3/V5 result changed.

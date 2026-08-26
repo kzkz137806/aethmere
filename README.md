@@ -2,20 +2,34 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
-Aethmere helps local models, Codex, and Claude Code continue from the project context you explicitly save. The desktop app manages context and can chat through local Ollama models; the CLI and editor extension connect the same local material to your development tools. Your project files do not need to be uploaded to Aethmere.
+Aethmere is a local-first project-context CLI for Codex and Claude Code. The user-facing command is **`aethmere-agent`**: it saves the context you explicitly choose inside each project and exposes that local material through MCP. The desktop app and VS Code extension are optional interfaces to the same local context. Your project files do not need to be uploaded to Aethmere.
 
-## Downloads
+The separate **`aethmere`** command is only an optional public-benchmark verifier. It is not the product CLI and is not required to use Aethmere in a project.
+
+## Install the Aethmere CLI
+
+Node.js 20 or later is required.
+
+```bash
+npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
+aethmere-agent --version
+cd your-project
+aethmere-agent init
+```
+
+Continue with the [five-minute quick start](QUICKSTART.md) to save project context and connect Codex or Claude Code.
+
+## Product downloads
 
 | Download | Purpose | Install |
 |---|---|---|
-| **Agent Studio 0.10.1 (Windows x64)** | Visual context management and local Ollama chat | Download [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
-| **Agent Client 0.10.0** | Local context and MCP integration | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
+| **Aethmere CLI 0.10.0 (`aethmere-agent`)** | Save local project context and connect it to Codex or Claude Code through MCP | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
+| **Agent Studio 0.10.1 (Windows x64)** | Optional visual context management and local Ollama chat | Download [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
 | **VS Code extension 0.10.0** | Save selected text and inspect local context | Download [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
-| **Evaluation CLI 0.10.2** | Inspect V3/V5 comparisons between an Aethmere-supported 7B model and the same 7B model without memory | `npm install -g https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz` |
 
 Every release file includes a SHA-256 checksum. Studio is an unsigned portable Windows preview: extract the complete ZIP before running `Aethmere Agent Studio.exe`; Windows may display an “Unknown publisher” warning. It does not scan projects, its automatic HTTP access is limited to Ollama on local `127.0.0.1:11434`, and it has no telemetry. Source is available in [`studio/`](studio/), [`agent-client/`](agent-client/), and [`vscode/`](vscode/).
 
-## Windows desktop app
+## Windows desktop app (optional)
 
 1. Download the Studio ZIP and `.sha256.txt` from the [v0.10.1 release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1).
 2. Verify the SHA-256 checksum, then extract the complete archive instead of moving the EXE by itself.
@@ -26,7 +40,7 @@ Studio and the command-line Agent Client share the same `.aethmere/context.json`
 
 ## Connect Codex or Claude Code from the command line
 
-Node.js 20 or later is required. `aethmere-agent` is the agent integration client; `aethmere` is the evaluation and verification tool.
+Node.js 20 or later is required. `aethmere-agent` is the Aethmere CLI that users install for project integration.
 
 ```bash
 node --version
@@ -82,9 +96,20 @@ On 2026-08-26, a different operator tested five locked product versions on an in
 
 Aethmere scores 18/18 in both runs and has the highest stable-pass count and applicable-dimension pass rate in this locked matrix. Graphiti's 14 stable FAIL outcomes mean that its native operations did not complete within the locked time limit; they do not establish that the functions can never be performed. Protocol verification passes, while the five-product matrix still contains non-PASS cells, so the aggregate `capability_all_passed` value is correctly `false`; this does not mean that Aethmere failed. Counts, integrity hashes, method, and limits on generalization are available in [EVALUATION.md](EVALUATION.md).
 
+## Optional benchmark verifier
+
+The separately versioned `aethmere` command reproduces public aggregate evaluation data and release-integrity checks. Install it only if you want to audit those published receipts:
+
+```bash
+npm install --global https://aethmere.com/downloads/aethmere-cli-0.10.2.tgz
+aethmere eval
+```
+
+This verifier does not provide project memory or MCP integration. For normal use, install `aethmere-agent` from the product-download table above.
+
 ## Public scope
 
-This repository contains the publicly auditable local Studio, Agent Client, VS Code extension, verification CLI, aggregate evaluations, and usage documentation. Aethmere's private service runtime, internal prompts, retrieval-ranking algorithms, private evaluation items, raw model outputs, customer data, and project materials are not included.
+The primary product in this repository is the publicly auditable local Aethmere CLI (`aethmere-agent`), accompanied by the optional Studio and VS Code interfaces. A separate benchmark verifier, aggregate evaluations, and their documentation are included for reproducibility, but they are not the product entry point. Aethmere's private service runtime, internal prompts, retrieval-ranking algorithms, private evaluation items, raw model outputs, customer data, and project materials are not included.
 
 - Website: [aethmere.com](https://aethmere.com)
 - Downloads: [GitHub Releases](https://github.com/kzkz137806/aethmere/releases)
