@@ -54,19 +54,19 @@ V5 contains 4,800 Chinese and English test items in total:
 
 Both groups use the same 7B model, sealed items, languages, and denominator; the difference is whether Aethmere support and memory are used. The no-memory baseline scores 1,346/2,400 (56.1%) in Chinese and 636/2,400 (26.5%) in English. The Aethmere-supported model repairs all 2,818/2,818 baseline failures with zero regressions on the items the baseline originally answered correctly. Evaluation design, V3 results, and limitations are documented in [EVALUATION.md](EVALUATION.md).
 
-## 15-dimension competitive scorecard (V12)
+## 18-dimension native measured scorecard (V13)
 
-The original 15 dimensions and 100-point weighting are restored. The locked V5 native run adjusts only the dimensions it directly covers; an 18/18 native result does not replace the broader scorecard.
+The composite score now follows the locked V5 evidence directly: `10 × stable PASS ÷ 18`. FAIL, FLAKY, and N/A earn no score credit. The separate applicable-dimension rate still excludes N/A, so coverage and formal pass rate are both visible.
 
-| Rank | Product | Balanced-target score |
+| Rank | Product | V5 native measured score |
 |---:|---|---:|
-| 1 | **Aethmere** | **8.49 / 10** |
-| 2 | MemOS | 7.83 / 10 |
-| 3 | Letta Code | 7.82 / 10 |
-| 4 | Mem0 | 6.31 / 10 |
-| 5 | Graphiti | 5.60 / 10 |
+| 1 | **Aethmere** | **10.00 / 10** |
+| 2 | Letta Code | 7.22 / 10 |
+| 2 | MemOS | 7.22 / 10 |
+| 4 | Mem0 | 6.67 / 10 |
+| 5 | Graphiti | 0.56 / 10 |
 
-This score reflects Aethmere's balanced target rather than a universal industry ranking. Under a memory-infrastructure-first profile, MemOS scores 8.31 while Aethmere scores 8.10 and ranks 3/5. The complete matrix, weight sensitivity, formula, first-party sources, and limitations are in [EVALUATION.md](EVALUATION.md); the machine-readable input is on the [official website](https://aethmere.com/evaluation/peer-scorecard-v12.json).
+V12 has been withdrawn because it mixed expert-adjudicated documentation baselines with small native-test modifiers; that could leave a product with a worse native result at a higher dimension score. V13 removes those subjective baselines. A score of 10.00 means only 18/18 stable passes in this locked contract—not perfect product quality, third-party certification, a universal ranking, or a production SLA. The complete matrix, formula, hashes, and limitations are in [EVALUATION.md](EVALUATION.md); the machine-readable result is on the [official website](https://aethmere.com/evaluation/peer-scorecard-v13.json).
 
 ## Independent-device blind test across 18 native capabilities (V5)
 

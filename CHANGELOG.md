@@ -2,9 +2,9 @@
 
 ## Unreleased — 2026-08-26
 
-- Restored the full 15-dimension competitive scorecard with unchanged 100-point weights.
-- Recalculated the ten directly covered dimensions using the locked V5 stable native outcomes while retaining first-party documented evidence for the five uncovered skill and growth dimensions.
-- Published the complete matrix, weight sensitivity and explicit non-universal-ranking boundary; no client artifact or historical V3/V5 result changed.
+- Replaced the V12 hybrid documentation/native scorecard with the evidence-first V13 score: `10 × stable PASS ÷ 18`.
+- Published the complete D01–D18 two-run matrix, shared ranks, applicable-dimension counts, and explicit owner-run/non-SLA boundaries.
+- Withdrew the subjective documentation baselines and weight profiles because they could rank a lower native result above a higher one; no client artifact or historical V3/V5 result changed.
 
 ## 0.10.2 — 2026-08-25
 
