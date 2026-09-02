@@ -1,45 +1,62 @@
-# Aethmere CLI (`aethmere-agent`)
+# Aethmere Agent Client (0.12.0)
 
-这是给用户安装的 Aethmere 产品 CLI。它把你明确保存的项目上下文，通过本地 MCP 接给 Codex 或 Claude Code。资料保存在当前项目的 `.aethmere/context.json`；客户端没有网络请求代码，也不会上传项目文件。另一个 `aethmere` 命令只是公开评测复核工具，不是本产品入口。
+This is the public, auditable CLI and MCP connector for user-owned project context.
 
-## 安装
+## Required connection
 
-需要 Node.js 20 或更高版本。
+Version 0.12.0 is a governed online client. Before any formal context capability runs, it must:
 
-```bash
-npm install -g https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-agent-0.10.0.tgz
-aethmere-agent --version
-```
+1. authenticate a device authorization with https://app.aethmere.com;
+2. fetch the current governance policy and supported-version floor;
+3. receive an acknowledgement for a closed started event;
+4. send a terminal result event after the local capability finishes.
 
-## 三步开始
+If a terminal event cannot be delivered, it is kept in a private local outbox. The next formal capability is blocked until that outbox is acknowledged. Logging out removes the device authorization but does not erase pending terminal events. Each local outbox entry is bound to the SHA-256 hash of the service-provided stable account ID: signing back into the same account can resume delivery, while a different account fails closed instead of receiving another account's event. The raw account ID is not stored in the account file or outbox. Missing accounts, network failures, policy mismatches and unsupported versions fail closed before project context is read or changed.
 
-```bash
-cd your-project
-aethmere-agent init
-aethmere-agent add --id PROJECT_GOAL --title "项目目标" --text "在这里写入你希望智能体长期接得上的背景"
-aethmere-agent connect --client all
-```
+The event body contains only the documented closed fields: client/version/platform family, capability step, result/reason code, coarse duration/attempt/day buckets and random flow IDs. It does not contain prompts, context text, answers, project files, paths, URLs, IP fields, User-Agent fields, account tokens or secrets. Normal network infrastructure can still observe connection metadata; this statement describes the governance event body and stored event schema.
 
-重启已连接的 AI 客户端后，它可以通过 MCP 列出和读取这些本地上下文。你也可以先运行：
+Login, logout, connection diagnosis, update checks and explicit user-data deletion remain available as recovery/support actions.
 
-```bash
-aethmere-agent doctor
-aethmere-agent list
-```
+## Install
 
-## 当前公开能力
+Node.js 20 or newer is required.
 
-- 本地初始化、添加、列出、读取和删除上下文；
-- 通过 MCP 向已连接的智能体提供只读的上下文列表、单项读取和证据 ID 检查；
-- 一条命令接入 Codex、Claude Code，修改前保留配置备份；
-- 零第三方依赖、零遥测、零网络请求。
+    npm install -g https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
+    aethmere-agent --version
 
-公开客户端是可审计的本地连接器，不包含 Aethmere 的私有服务运行时、召回排序算法、内部提示词或私有评测题。公开封存评测也不代表这个客户端或当前线上版本在开放世界问题上的准确率。
+In the Aethmere web app, generate a one-time computer connection code, then run:
 
-## 卸载
+    aethmere-agent login --code YOUR_CODE
+    aethmere-agent doctor
 
-```bash
-npm uninstall -g aethmere-agent
-```
+The normal login success message is:
 
-项目里的 `.aethmere/context.json` 属于你；卸载不会删除它。
+    Aethmere account connected. Live governance will be verified before every formal capability.
+
+## Use
+
+    cd your-project
+    aethmere-agent init
+    aethmere-agent add --id PROJECT_GOAL --title "Project goal" --text "The durable project goal"
+    printf "Private editor selection" | aethmere-agent add --id SELECTION --title "Selection" --stdin
+    aethmere-agent list
+    aethmere-agent connect --client all --check
+    aethmere-agent connect --client all
+
+Project context remains in .aethmere/context.json. Context content is not placed in governance event bodies.
+
+## Legacy versions
+
+Versions 0.10.x and 0.11.x were local-only previews. They do not implement the required governance chain and are unsupported for formal Aethmere use. Existing copies cannot be remotely converted; replace them with 0.12.0 or later.
+
+Check the service version floor at any time:
+
+    aethmere-agent update-check
+
+## Uninstall and delete
+
+    npm uninstall -g aethmere-agent
+
+Uninstalling does not delete project context. To delete an item explicitly:
+
+    aethmere-agent remove --id ITEM_ID --yes

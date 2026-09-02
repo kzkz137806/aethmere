@@ -1,7 +1,7 @@
 {
   "name": "aethmere-agent-studio",
-  "version": "0.10.1",
-  "description": "Aethmere Agent Studio public Windows preview",
+  "version": "0.12.0",
+  "description": "Aethmere Agent Studio governed Windows client",
   "private": true,
   "type": "module",
   "main": "main.mjs",

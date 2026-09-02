@@ -1,13 +1,17 @@
 {
   "name": "aethmere-agent",
-  "version": "0.10.0",
-  "description": "Aethmere local agent client: a zero-dependency MCP bridge for user-owned project context.",
+  "version": "0.12.0",
+  "description": "Aethmere governed MCP bridge for user-owned project context.",
   "type": "module",
   "bin": {
     "aethmere-agent": "bin/aethmere-agent.mjs"
   },
   "engines": {
     "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "package:release": "node bin/package-release.mjs"
   },
   "files": [
     "bin/",

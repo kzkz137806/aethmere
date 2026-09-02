@@ -1,0 +1,7 @@
+bin/**
+dist/**
+node_modules/**
+test/**
+package-lock.json
+*.vsix
+*.sha256.txt

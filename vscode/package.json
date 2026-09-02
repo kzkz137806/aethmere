@@ -1,8 +1,8 @@
 {
   "name": "aethmere-vscode",
-  "displayName": "Aethmere — Local Context",
-  "description": "Save selected project context locally and make it available to the Aethmere Agent Client.",
-  "version": "0.10.0",
+  "displayName": "Aethmere — Governed Context",
+  "description": "Use independently governed project context through Aethmere Agent 0.12.0 or later.",
+  "version": "0.12.0",
   "publisher": "aethmere",
   "license": "SEE LICENSE IN LICENSE.txt",
   "engines": {
@@ -24,16 +24,31 @@
     "onCommand:aethmere.initialize",
     "onCommand:aethmere.saveSelection",
     "onCommand:aethmere.openContext",
-    "onCommand:aethmere.copyConnectCommand",
+    "onCommand:aethmere.connectClients",
     "onCommand:aethmere.checkSetup",
-    "onCommand:aethmere.refresh"
+    "onCommand:aethmere.refresh",
+    "onCommand:aethmere.openDownloads"
   ],
   "main": "./extension.js",
+  "extensionKind": [
+    "workspace"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kzkz137806/aethmere.git",
+    "directory": "vscode"
+  },
+  "homepage": "https://aethmere.com/downloads/",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/*.test.cjs",
+    "package:vsix": "node bin/package-vsix.mjs",
+    "verify:vsix": "node bin/verify-vsix.mjs"
+  },
   "contributes": {
     "commands": [
       {
         "command": "aethmere.initialize",
-        "title": "Aethmere: Initialize Local Context"
+        "title": "Aethmere: Initialize Governed Context"
       },
       {
         "command": "aethmere.saveSelection",
@@ -41,11 +56,11 @@
       },
       {
         "command": "aethmere.openContext",
-        "title": "Aethmere: Open Local Context File"
+        "title": "Aethmere: Show Governed Context"
       },
       {
-        "command": "aethmere.copyConnectCommand",
-        "title": "Aethmere: Copy Agent Connection Command"
+        "command": "aethmere.connectClients",
+        "title": "Aethmere: Connect Supported Clients"
       },
       {
         "command": "aethmere.checkSetup",
@@ -53,7 +68,11 @@
       },
       {
         "command": "aethmere.refresh",
-        "title": "Aethmere: Refresh Context"
+        "title": "Aethmere: Refresh Governed Context"
+      },
+      {
+        "command": "aethmere.openDownloads",
+        "title": "Aethmere: Download Supported Clients"
       }
     ],
     "views": {
@@ -85,5 +104,9 @@
         }
       ]
     }
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.9.2",
+    "yauzl": "3.2.1"
   }
 }

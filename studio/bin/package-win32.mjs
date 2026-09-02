@@ -9,8 +9,8 @@ import { fileURLToPath } from "node:url";
 const studioRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifest = JSON.parse(await readFile(path.join(studioRoot, "package.json"), "utf8"));
 const electronRoot = path.resolve(String(process.env.AETHMERE_ELECTRON_DIST || ""));
-const outputRoot = path.resolve(process.env.AETHMERE_STUDIO_OUTPUT || path.join(studioRoot, "dist", `aethmere-agent-studio-${manifest.version}-win32-x64`));
-const expectedOutputName = `aethmere-agent-studio-${manifest.version}-win32-x64`;
+const outputRoot = path.resolve(process.env.AETHMERE_STUDIO_OUTPUT || path.join(studioRoot, "dist", `aethmere-studio-${manifest.version}-windows-x64`));
+const expectedOutputName = `aethmere-studio-${manifest.version}-windows-x64`;
 const runtimeRoot = path.join(outputRoot, "runtime");
 const runtimeFiles = [
   "chrome_100_percent.pak", "chrome_200_percent.pak", "d3dcompiler_47.dll", "dxcompiler.dll", "dxil.dll",
@@ -71,15 +71,20 @@ await cp(path.join(electronRoot, "locales"), path.join(runtimeRoot, "locales"), 
 for (const file of appFiles) await cp(path.join(studioRoot, file), path.join(runtimeRoot, "resources", "app", file), { recursive: true });
 await cp(path.resolve(studioRoot, "..", "LICENSE.txt"), path.join(outputRoot, "AETHMERE-LICENSE.txt"));
 await writeFile(path.join(outputRoot, "README.txt"), [
-  `Aethmere Agent Studio ${manifest.version} — Windows x64 public preview`,
+  `Aethmere Agent Studio ${manifest.version} — governed Windows x64 client`,
   "",
   "1. Extract the whole ZIP before starting the app.",
   "2. Double-click Aethmere Agent Studio.exe.",
   "3. Windows may show an unknown-publisher warning because this preview is not code-signed.",
-  "4. Local chat requires Ollama on 127.0.0.1:11434; context management works without it.",
+  "4. Connect this computer with a one-time code from app.aethmere.com.",
+  "5. Local chat requires Ollama on 127.0.0.1:11434.",
   "",
-  "No telemetry. No automatic external network requests. Project files are not scanned.",
+  "All formal capabilities require a live first-party governance policy and start acknowledgement.",
+  "Studio sends closed step/result events to app.aethmere.com. These events do not contain prompts, answers, project content, paths, URLs, IP addresses, user-agent strings, tokens or secrets.",
+  "Project content is sent only to loopback Ollama and project files are not scanned automatically.",
+  "Versions before 0.12.0 are legacy offline previews and are not governed clients.",
   "Source and checksums: https://github.com/kzkz137806/aethmere",
+  "Updates: https://aethmere.com/downloads/",
   "",
 ].join("\r\n"), "utf8");
 
@@ -97,8 +102,24 @@ const portable = {
   platform: "win32-x64",
   entrypoint: "Aethmere Agent Studio.exe",
   runtime: "runtime/electron.exe",
-  source: "https://github.com/kzkz137806/aethmere/tree/main/studio",
-  network: { automatic_external_requests: false, telemetry: false, local_model_origin: "http://127.0.0.1:11434" },
+  source: `https://github.com/kzkz137806/aethmere/tree/v${manifest.version}/studio`,
+  network: {
+    automatic_external_requests: true,
+    first_party_governance_origin: "https://app.aethmere.com",
+    local_model_origin: "http://127.0.0.1:11434",
+    other_automatic_origins_allowed: false,
+    behavior_events: { raw_content: false, closed_schema: "aethmere.client-behavior.v1" },
+  },
+  governance: {
+    required: true,
+    fail_closed: true,
+    policy_check_before_capability: true,
+    start_ack_before_capability: true,
+    pending_terminal_flush_before_capability: true,
+    minimum_client_version: "0.12.0",
+    update_check: "authenticated governance policy",
+    update_url: "https://aethmere.com/downloads/",
+  },
   artifacts,
 };
 await writeFile(path.join(outputRoot, "PORTABLE-MANIFEST.json"), `${JSON.stringify(portable, null, 2)}\n`, "utf8");

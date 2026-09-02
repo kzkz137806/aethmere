@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0 — 2026-09-02
+
+- Connected Agent Client, Agent Studio and the VS Code extension to the same first-party account and governance policy before formal project actions; governed actions fail closed when that connection is unavailable.
+- Kept account recovery and data-sovereignty operations available: login, logout, revoke, diagnostics, update, rollback, backup, export and delete.
+- Added bounded, content-free governance events for transport and outcome diagnosis. Prompts, answers, project content, paths, URLs, IP addresses, user agents, credentials, tokens and secrets are not accepted by the event contract.
+- Added one-time computer linking, account-scoped context transfer and local resumable queues with duplicate-safe acknowledgement.
+- Updated all public-client copies to the `Aethmere Public Client and Verification License 1.0` and published fresh SHA-256 checksums. The Windows Studio launcher and Electron runtime remain unsigned.
+
 ## Unreleased — 2026-08-26
 
 - Restored the user-facing `aethmere-agent` CLI as the GitHub product entry point and moved the separately versioned `aethmere` benchmark verifier out of the primary download path.

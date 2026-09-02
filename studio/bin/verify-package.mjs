@@ -7,7 +7,8 @@ import { fileURLToPath } from "node:url";
 
 const studioRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const packageJson = JSON.parse(await readFile(path.join(studioRoot, "package.json"), "utf8"));
-const packageRoot = path.resolve(process.env.AETHMERE_STUDIO_PACKAGE_ROOT || path.join(studioRoot, "dist", `aethmere-agent-studio-${packageJson.version}-win32-x64`));
+const expectedDirectoryName = `aethmere-studio-${packageJson.version}-windows-x64`;
+const packageRoot = path.resolve(process.env.AETHMERE_STUDIO_PACKAGE_ROOT || path.join(studioRoot, "dist", expectedDirectoryName));
 const manifestFile = path.join(packageRoot, "PORTABLE-MANIFEST.json");
 
 function normalize(value) {
@@ -37,12 +38,30 @@ async function sha256(file) {
 }
 
 const manifest = JSON.parse(await readFile(manifestFile, "utf8"));
+if (path.basename(packageRoot) !== expectedDirectoryName) throw new Error(`package directory name mismatch: ${path.basename(packageRoot)}`);
 if (manifest.schema !== "aethmere.agent-studio.public-portable.v1" || manifest.version !== packageJson.version) {
   throw new Error("portable manifest identity mismatch");
 }
 if (manifest.entrypoint !== "Aethmere Agent Studio.exe" || manifest.runtime !== "runtime/electron.exe") {
   throw new Error("portable entrypoint mismatch");
 }
+if (manifest.source !== `https://github.com/kzkz137806/aethmere/tree/v${packageJson.version}/studio`) {
+  throw new Error("portable source tag mismatch");
+}
+if (
+  manifest.network?.automatic_external_requests !== true ||
+  manifest.network?.first_party_governance_origin !== "https://app.aethmere.com" ||
+  manifest.network?.local_model_origin !== "http://127.0.0.1:11434" ||
+  manifest.network?.other_automatic_origins_allowed !== false ||
+  manifest.network?.behavior_events?.raw_content !== false ||
+  manifest.governance?.required !== true ||
+  manifest.governance?.fail_closed !== true ||
+  manifest.governance?.policy_check_before_capability !== true ||
+  manifest.governance?.start_ack_before_capability !== true ||
+  manifest.governance?.pending_terminal_flush_before_capability !== true ||
+  manifest.governance?.minimum_client_version !== "0.12.0" ||
+  manifest.governance?.update_url !== "https://aethmere.com/downloads/"
+) throw new Error("portable governance boundary mismatch");
 const expected = manifest.artifacts.map((artifact) => normalize(artifact.path));
 if (new Set(expected).size !== expected.length) throw new Error("duplicate manifest path");
 const actual = (await collectFiles(packageRoot)).filter((file) => file !== "PORTABLE-MANIFEST.json");

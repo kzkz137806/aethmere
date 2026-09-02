@@ -6,12 +6,12 @@ using System.Text;
 using System.Windows.Forms;
 
 [assembly: AssemblyTitle("Aethmere Agent Studio")]
-[assembly: AssemblyDescription("Aethmere Agent Studio public Windows preview")]
+[assembly: AssemblyDescription("Aethmere Agent Studio governed Windows client")]
 [assembly: AssemblyCompany("Aethmere")]
 [assembly: AssemblyProduct("Aethmere Agent Studio")]
 [assembly: AssemblyCopyright("Copyright Aethmere")]
-[assembly: AssemblyVersion("0.10.1.0")]
-[assembly: AssemblyFileVersion("0.10.1.0")]
+[assembly: AssemblyVersion("0.12.0.0")]
+[assembly: AssemblyFileVersion("0.12.0.0")]
 
 namespace Aethmere.AgentStudioLauncher
 {

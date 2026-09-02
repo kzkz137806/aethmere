@@ -24,6 +24,17 @@
         <p id="project-path" class="project-path">只读取你明确保存的本地上下文</p>
       </section>
 
+      <section class="account-panel">
+        <p class="section-label">Aethmere 治理连接</p>
+        <p id="account-status" class="account-status">正在检查账号…</p>
+        <form id="account-login" class="account-login" hidden>
+          <label for="device-code">一次性电脑连接码</label>
+          <div><input id="device-code" maxlength="40" autocomplete="one-time-code" placeholder="XXXX-XXXX" required><button type="submit">连接</button></div>
+        </form>
+        <button id="retry-governance" class="text-button" type="button" hidden>重新检查治理连接</button>
+        <button id="account-logout" class="text-button" type="button" hidden>退出这台电脑</button>
+      </section>
+
       <section class="context-panel">
         <div class="section-head">
           <p class="section-label">项目上下文</p>
@@ -35,16 +46,16 @@
       </section>
 
       <footer class="sidebar-footer">
-        <div class="privacy-line"><span></span> 本机运行 · 无遥测</div>
+        <div class="privacy-line"><span></span> 强制在线治理 · 不上传内容</div>
         <button id="copy-install" class="text-button" type="button">复制 Agent Client 安装命令</button>
-        <button id="open-release" class="text-button" type="button">插件与其他下载</button>
+        <button id="open-release" class="text-button" type="button">下载最新版与插件</button>
       </footer>
     </aside>
 
     <section class="workspace">
       <header class="topbar">
         <div>
-          <p class="eyebrow">PUBLIC PREVIEW</p>
+          <p class="eyebrow">PUBLIC RELEASE · 0.12</p>
           <h1>让本机模型接得上你的项目。</h1>
         </div>
         <div class="model-control">
@@ -62,7 +73,7 @@
           <span class="welcome-orbit" aria-hidden="true"></span>
           <p class="eyebrow">AETHMERE LOCAL CONTEXT</p>
           <h2>你决定什么值得被记住。</h2>
-          <p>选择项目，保存几条关键上下文，再勾选要交给本机模型的内容。Studio 不会扫描整个项目，也不会把资料上传到 Aethmere。</p>
+          <p>先连接 Aethmere 账号，再选择项目、保存关键上下文并交给本机模型。Studio 不扫描整个项目，也不把提示词、回答、项目内容、路径或网址上传到 Aethmere；正式能力会发送封闭的执行步骤与结果事件。</p>
           <div class="steps">
             <span><b>01</b> 选择项目</span>
             <span><b>02</b> 保存上下文</span>
@@ -77,7 +88,7 @@
           <textarea id="prompt" rows="1" maxlength="8000" placeholder="问问题，或让本机模型基于已选上下文继续工作…"></textarea>
           <button id="send" class="send-button" type="button" aria-label="发送">↑</button>
         </div>
-        <p class="composer-note">对话只发往 127.0.0.1 的 Ollama；项目文件不会被自动读取。</p>
+        <p class="composer-note">对话内容只发往 127.0.0.1 的 Ollama；app.aethmere.com 只接收不含内容的治理事件。</p>
       </footer>
     </section>
   </main>

@@ -98,6 +98,23 @@ export function removeItem(root, idValue) {
   return id;
 }
 
+export function getItem(root, idValue) {
+  const id = String(idValue || "").trim().toUpperCase();
+  if (!ITEM_ID.test(id)) throw new Error("上下文 ID 无效");
+  const item = readStore(root).items.find((candidate) => candidate.id === id);
+  if (!item) throw new Error(`没有找到 ${id}`);
+  return item;
+}
+
+export function listSummaries(root) {
+  return readStore(root).items.map(({ id, title, tags, updated_at: updatedAt }) => ({
+    id,
+    title,
+    tags,
+    updated_at: updatedAt,
+  }));
+}
+
 export function selectedContext(root, idsValue) {
   const ids = Array.isArray(idsValue) ? [...new Set(idsValue.map(String).map((id) => id.trim().toUpperCase()))].slice(0, 6) : [];
   if (ids.some((id) => !ITEM_ID.test(id))) throw new Error("所选上下文 ID 无效");

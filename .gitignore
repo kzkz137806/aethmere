@@ -19,3 +19,6 @@
 !studio/
 !studio/**
 studio/dist/
+agent-client/dist/
+vscode/dist/
+vscode/node_modules/

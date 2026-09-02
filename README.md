@@ -2,7 +2,7 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
-Aethmere is a local-first project-context CLI for Codex and Claude Code. The user-facing command is **`aethmere-agent`**: it saves the context you explicitly choose inside each project and exposes that local material through MCP. The desktop app and VS Code extension are optional interfaces to the same local context. Your project files do not need to be uploaded to Aethmere.
+Aethmere is a governed project-context CLI for Codex and Claude Code that stores user-selected context locally. The user-facing command is **`aethmere-agent`**: it saves the context you explicitly choose inside each project and exposes that local material through MCP. The desktop app and VS Code extension are optional interfaces to the same local context. Your project files do not need to be uploaded to Aethmere; formal capabilities still require the closed online governance chain described below.
 
 The separate **`aethmere`** command is only an optional public-benchmark verifier. It is not the product CLI and is not required to use Aethmere in a project.
 
@@ -11,11 +11,14 @@ The separate **`aethmere`** command is only an optional public-benchmark verifie
 Node.js 20 or later is required.
 
 ```bash
-npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
 aethmere-agent --version
+aethmere-agent login --code CODE
 cd your-project
 aethmere-agent init
 ```
+
+Use the one-time device code shown by the Aethmere account app. A successful login prints `Aethmere account connected. Live governance will be verified before every formal capability.`
 
 Continue with the [five-minute quick start](QUICKSTART.md) to save project context and connect Codex or Claude Code.
 
@@ -23,15 +26,15 @@ Continue with the [five-minute quick start](QUICKSTART.md) to save project conte
 
 | Download | Purpose | Install |
 |---|---|---|
-| **Aethmere CLI 0.10.0 (`aethmere-agent`)** | Save local project context and connect it to Codex or Claude Code through MCP | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
-| **Agent Studio 0.10.1 (Windows x64)** | Optional visual context management and local Ollama chat | Download [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
-| **VS Code extension 0.10.0** | Save selected text and inspect local context | Download [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
+| **Aethmere Agent Client 0.12.0 (`aethmere-agent`)** | Save local project context and connect it to Codex or Claude Code through MCP | `npm install -g https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz` |
+| **Aethmere Studio 0.12.0 (Windows x64)** | Optional visual context management and local Ollama chat | Download [`aethmere-studio-0.12.0-windows-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.12.0/aethmere-studio-0.12.0-windows-x64.zip) |
+| **VS Code extension 0.12.0** | Save selected text and inspect local context through the Agent Client | Download [`aethmere-vscode-0.12.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.12.0/aethmere-vscode-0.12.0.vsix) |
 
-Every release file includes a SHA-256 checksum. Studio is an unsigned portable Windows preview: extract the complete ZIP before running `Aethmere Agent Studio.exe`; Windows may display an “Unknown publisher” warning. It does not scan projects, its automatic HTTP access is limited to Ollama on local `127.0.0.1:11434`, and it has no telemetry. Source is available in [`studio/`](studio/), [`agent-client/`](agent-client/), and [`vscode/`](vscode/).
+Every release file includes a SHA-256 checksum. Studio is an unsigned portable Windows preview: extract the complete ZIP before running `Aethmere Agent Studio.exe`; Windows may display an “Unknown publisher” warning. Version 0.12.0 requires device authorization and a live connection to `https://app.aethmere.com` before every formal capability; Studio can also contact loopback Ollama at `http://127.0.0.1:11434` after a user requests local-model work. Governance events use a closed schema containing result metadata only—never prompts, answers, project content, context text, paths, URLs, IP addresses, user-agent strings, account tokens, or secrets. If authorization, policy, version, or event delivery cannot be verified, the formal capability stops. Source is available in [`studio/`](studio/), [`agent-client/`](agent-client/), and [`vscode/`](vscode/).
 
 ## Windows desktop app (optional)
 
-1. Download the Studio ZIP and `.sha256.txt` from the [v0.10.1 release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1).
+1. Download the Studio ZIP and `.sha256.txt` from the [v0.12.0 release](https://github.com/kzkz137806/aethmere/releases/tag/v0.12.0).
 2. Verify the SHA-256 checksum, then extract the complete archive instead of moving the EXE by itself.
 3. Run `Aethmere Agent Studio.exe`, select a project, and save context.
 4. To chat with a local model, start Ollama and install at least one model. Context management remains available without Ollama.
@@ -44,8 +47,9 @@ Node.js 20 or later is required. `aethmere-agent` is the Aethmere CLI that users
 
 ```bash
 node --version
-npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
 aethmere-agent --version
+aethmere-agent login --code CODE
 cd your-project
 aethmere-agent init
 aethmere-agent add --id PROJECT_GOAL --title "Project goal" --text "Add the background you want your AI to retain"

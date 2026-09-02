@@ -1,10 +1,8 @@
-Aethmere Public Verification License 1.0
+Aethmere Public Client and Verification License 1.0
 
 Copyright 2026 Aethmere. All rights reserved.
 
-Permission is granted to download, install, and use the Aethmere public
-verification CLI for personal, internal, security-review, and product-testing
-purposes.
+Permission is granted to download, install, and use the Aethmere public client software and verification tools distributed with this license for personal, internal, security-review, and product-testing purposes.
 
 This permission does not grant a right to redistribute modified binaries,
 remove notices, use Aethmere trademarks as your own, or attempt to obtain

@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 const studioRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const packageJson = JSON.parse(await import("node:fs/promises").then(({ readFile }) => readFile(path.join(studioRoot, "package.json"), "utf8")));
 const distRoot = path.join(studioRoot, "dist");
-const directoryName = `aethmere-agent-studio-${packageJson.version}-win32-x64`;
+const directoryName = `aethmere-studio-${packageJson.version}-windows-x64`;
 const packageRoot = path.join(distRoot, directoryName);
 const archiveName = `${directoryName}.zip`;
 const archive = path.join(distRoot, archiveName);

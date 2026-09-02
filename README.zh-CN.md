@@ -11,11 +11,14 @@
 需要 Node.js 20 或更高版本。
 
 ```bash
-npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
 aethmere-agent --version
+aethmere-agent login --code CODE
 cd your-project
 aethmere-agent init
 ```
+
+`CODE` 是 Aethmere 账号页面显示的一次性设备代码。登录成功会显示：`Aethmere account connected. Live governance will be verified before every formal capability.`
 
 然后按[五分钟快速开始](QUICKSTART.md)保存项目上下文，并接入 Codex 或 Claude Code。
 
@@ -23,15 +26,15 @@ aethmere-agent init
 
 | 下载 | 用途 | 安装 |
 |---|---|---|
-| **Aethmere CLI 0.10.0（`aethmere-agent`）** | 保存本地项目上下文，并通过 MCP 接入 Codex 或 Claude Code | `npm install -g https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz` |
-| **Agent Studio 0.10.1（Windows x64）** | 可选的可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-agent-studio-0.10.1-win32-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.1/aethmere-agent-studio-0.10.1-win32-x64.zip) |
-| **VS Code 插件 0.10.0** | 保存选中文字、查看本地上下文 | 下载 [`aethmere-vscode-0.10.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.10.0/aethmere-vscode-0.10.0.vsix) |
+| **Aethmere Agent Client 0.12.0（`aethmere-agent`）** | 保存本地项目上下文，并通过 MCP 接入 Codex 或 Claude Code | `npm install -g https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz` |
+| **Aethmere Studio 0.12.0（Windows x64）** | 可选的可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-studio-0.12.0-windows-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.12.0/aethmere-studio-0.12.0-windows-x64.zip) |
+| **VS Code 插件 0.12.0** | 通过 Agent Client 保存选中文字、查看本地上下文 | 下载 [`aethmere-vscode-0.12.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.12.0/aethmere-vscode-0.12.0.vsix) |
 
-所有发行文件同时提供 SHA-256。Studio 是未签名的 Windows 便携预览版：请先完整解压 ZIP，再运行 `Aethmere Agent Studio.exe`；Windows 可能显示“未知发布者”。它不会扫描项目，自动 HTTP 只允许本机 `127.0.0.1:11434` 的 Ollama，没有遥测。源码见 [`studio/`](studio/)、[`agent-client/`](agent-client/) 和 [`vscode/`](vscode/)。
+所有发行文件同时提供 SHA-256。Studio 是未签名的 Windows 便携预览版：请先完整解压 ZIP，再运行 `Aethmere Agent Studio.exe`；Windows 可能显示“未知发布者”。0.12.0 的每次正式能力都必须先完成设备授权，并在线连接 `https://app.aethmere.com`；用户主动调用本机模型时，Studio 还会访问 `http://127.0.0.1:11434` 的 Ollama。治理事件采用封闭字段，只包含客户端、版本、平台、策略摘要、步骤、结果、结构化原因、粗粒度耗时／次数／日期桶和随机事件标识，不包含提示词、回答、项目内容、上下文正文、路径、URL、IP、User-Agent、账号令牌或密钥。授权、策略、版本或事件送达无法验证时，正式能力停止。源码见 [`studio/`](studio/)、[`agent-client/`](agent-client/) 和 [`vscode/`](vscode/)。
 
 ## Windows 桌面端（可选）
 
-1. 从 [v0.10.1 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.10.1) 下载 Studio ZIP 和 `.sha256.txt`；
+1. 从 [v0.12.0 Release](https://github.com/kzkz137806/aethmere/releases/tag/v0.12.0) 下载 Studio ZIP 和 `.sha256.txt`；
 2. 校验 SHA-256 后完整解压，不要单独移动 EXE；
 3. 双击 `Aethmere Agent Studio.exe`，选择项目并保存上下文；
 4. 如需本机对话，先启动 Ollama 并安装至少一个模型。没有 Ollama 时，上下文管理仍可使用。
@@ -44,8 +47,9 @@ Studio 与命令行 Agent Client 使用同一份 `.aethmere/context.json`，可�
 
 ```bash
 node --version
-npm install --global https://aethmere.com/downloads/aethmere-agent-0.10.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
 aethmere-agent --version
+aethmere-agent login --code CODE
 cd your-project
 aethmere-agent init
 aethmere-agent add --id PROJECT_GOAL --title "项目目标" --text "写入你希望 AI 长期接得上的背景"

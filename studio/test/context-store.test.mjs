@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
-import { readStore, removeItem, saveItem, selectedContext, STORE_SCHEMA } from "../lib/context-store.mjs";
+import { getItem, listSummaries, readStore, removeItem, saveItem, selectedContext, STORE_SCHEMA } from "../lib/context-store.mjs";
 
 test("stores only explicit local context and interoperates with the public schema", async (t) => {
   const root = await mkdtemp(path.join(os.tmpdir(), "aethmere-public-studio-"));
@@ -15,6 +15,14 @@ test("stores only explicit local context and interoperates with the public schem
     schema: STORE_SCHEMA,
     items: [{ ...saved }],
   });
+  assert.deepEqual(getItem(root, "project_goal"), saved);
+  assert.deepEqual(listSummaries(root), [{
+    id: saved.id,
+    title: saved.title,
+    tags: saved.tags,
+    updated_at: saved.updated_at,
+  }]);
+  assert.equal(Object.hasOwn(listSummaries(root)[0], "text"), false);
   assert.deepEqual(selectedContext(root, ["PROJECT_GOAL"]).map((item) => item.id), ["PROJECT_GOAL"]);
   const disk = JSON.parse(await readFile(path.join(root, ".aethmere", "context.json"), "utf8"));
   assert.equal(disk.schema, "aethmere.local-context.v1");
