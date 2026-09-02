@@ -86,6 +86,7 @@ globalThis.fetch = async (input, options = {}) => {
   const url = new URL(String(input));
   if (url.origin !== "https://app.aethmere.com" || url.pathname !== "/api/governance") throw new Error("unexpected endpoint");
   const method = String(options.method || "GET").toUpperCase();
+  if (method === "POST" && new Headers(options.headers || {}).get("origin") !== "https://app.aethmere.com") throw new Error("missing first-party origin");
   const events = method === "POST" ? JSON.parse(String(options.body || "{}")).events : [];
   fs.appendFileSync(process.env.AGENT_E2E_LOG, JSON.stringify({ method, events }) + "\\n");
   const payload = method === "GET" ? status : { accepted: events.length, stored: events.length, rejected: [] };
@@ -126,6 +127,7 @@ globalThis.fetch = async (input, options = {}) => {
         latestClientVersions: { agent_client: "0.12.0", studio: "0.12.0", vscode: "0.12.0" },
         updateUrl: "https://aethmere.com/downloads/",
       }), { status: 200 });
+      assert.equal(options.headers.origin, "https://app.aethmere.com");
       const events = JSON.parse(options.body).events;
       vscodeEvents.push(...events);
       return new Response(JSON.stringify({ accepted: events.length, stored: events.length, rejected: [] }), { status: 200 });

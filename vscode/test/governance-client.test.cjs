@@ -172,6 +172,7 @@ test("VS Code status, full ACK start, Agent action, durable terminal and POST ar
         calls.push("status");
         return response(policy());
       }
+      assert.equal(options.headers.origin, "https://app.aethmere.com");
       const events = JSON.parse(options.body).events;
       calls.push(...events.map((event) => event.outcome));
       if (events[0].outcome !== "started") assert.equal(spoolFiles(home).length, 1);
