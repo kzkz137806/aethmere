@@ -49,5 +49,3 @@ process.stdout.write(JSON.stringify({
   checksum,
   files: packed[0].files,
 }, null, 2) + "\n");
-
-
