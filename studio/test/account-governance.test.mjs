@@ -129,6 +129,7 @@ test("Studio writes the exact shared account envelope, Agent reads it, and logou
     requests.push({ url, options }); return loginResponse();
   } });
   assert.equal(requests[0].url, `${AETHMERE_APP_ORIGIN}/api/auth/device-code`);
+  assert.equal(requests[0].options.headers.origin, AETHMERE_APP_ORIGIN);
   assert.deepEqual(JSON.parse(requests[0].options.body), { code: "ABCD-1234" });
   assert.equal(status.connected, true);
   const disk = JSON.parse(fs.readFileSync(accountPaths(home).account, "utf8"));
@@ -196,6 +197,7 @@ test("policy and stored start ACK precede action; terminal is spooled before POS
   const requests = [];
   const fetchImpl = async (url, options) => {
     requests.push({ url, options });
+    assert.equal(options.headers.origin, AETHMERE_APP_ORIGIN);
     if (options.method === "GET") return json(policy());
     const events = JSON.parse(options.body).events;
     if (events[0].outcome !== "started") assert.equal(spoolFiles(home).length, 1);

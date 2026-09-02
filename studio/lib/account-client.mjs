@@ -172,7 +172,7 @@ async function readBoundedJson(response) {
 
 export async function appRequest(pathname, options = {}, { home = defaultHome(), fetchImpl = fetch, authenticated = true, expectedAccountBinding = "" } = {}) {
   if (!/^\/api\/[A-Za-z0-9?=&._/-]+$/u.test(pathname)) throw new Error("拒绝无效的 Aethmere 服务路径。");
-  const headers = { accept: "application/json", ...(options.headers || {}) };
+  const headers = { accept: "application/json", ...(options.headers || {}), origin: AETHMERE_APP_ORIGIN };
   if (authenticated) {
     const account = loadAccount(home);
     if (!account) throw accountError("这台电脑尚未连接 Aethmere 账号。", "AUTH_REQUIRED");

@@ -262,6 +262,7 @@ test("formal action runs only after official policy and durable start acknowledg
   let startAcknowledged = false;
   await withFetch(async (request) => {
     assert.match(request.url, /^https:\/\/app\.aethmere\.com\/api\/governance$/u);
+    assert.equal(request.headers.get("origin"), OFFICIAL_SERVER);
     assert.equal(request.headers.get("authorization"), "Bearer " + TOKEN);
     assert.equal(request.headers.get("x-aethmere-client-kind"), "agent_client");
     assert.equal(request.headers.get("x-aethmere-client-version"), "0.12.0");
@@ -799,6 +800,7 @@ test("device login requires a stable account id but stores only its SHA-256 bind
   await withFetch((request) => {
     assert.equal(request.url, OFFICIAL_SERVER + "/api/auth/device-code");
     assert.equal(request.method, "PUT");
+    assert.equal(request.headers.get("origin"), OFFICIAL_SERVER);
     return jsonResponse({
       accessToken: TOKEN,
       tokenExpiresAt: "2099-01-01T00:00:00.000Z",

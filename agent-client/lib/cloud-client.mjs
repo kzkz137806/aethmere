@@ -146,6 +146,7 @@ async function request(server, pathname, options = {}) {
       headers: {
         accept: "application/json",
         ...(options.headers || {}),
+        origin: DEFAULT_SERVER,
       },
     });
     const text = await readBoundedResponse(response);
