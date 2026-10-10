@@ -4,6 +4,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { auditPackageDependencyClosure, extractPackageEntries } from "../lib/package-audit.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
@@ -27,6 +28,7 @@ const packed = JSON.parse(execFileSync(process.execPath, [
   npmCli,
   "pack",
   "--json",
+  "--ignore-scripts",
   "--pack-destination",
   dist,
 ], { cwd: root, encoding: "utf8" }));
@@ -35,6 +37,8 @@ if (!Array.isArray(packed) || packed.length !== 1 || !packed[0].filename) {
 }
 const generated = path.join(dist, path.basename(packed[0].filename));
 if (!fs.existsSync(generated)) throw new Error("npm pack artifact is missing");
+const closure = auditPackageDependencyClosure(extractPackageEntries(fs.readFileSync(generated)));
+if (!closure.ok) { fs.rmSync(generated, { force: true }); throw new Error("Incomplete release runtime: " + JSON.stringify(closure.issues)); }
 fs.renameSync(generated, output);
 
 const digest = createHash("sha256").update(fs.readFileSync(output)).digest("hex");

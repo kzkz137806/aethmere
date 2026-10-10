@@ -1,5 +1,12 @@
 # Changelog
 
+## Agent Client 0.12.1 — 2026-10-11
+
+- Added opt-in, task-bound local failure records containing the input, observed result and next check. SessionStart can resume the same diagnosis in a new process without rerunning the failed command. Changed, expired or incomplete conditions require a new check.
+- Added strict archive and runtime import validation before producing the zero-dependency Agent package; real isolated npm installation and Windows shim were verified on Node 24.18.0.
+- Hook definitions are previews for explicit host configuration. Formal project operations still require live first-party authorization. Studio and VS Code retain their 0.12.0 releases.
+
+
 ## 0.12.0 — 2026-09-02
 
 - Connected Agent Client, Agent Studio and the VS Code extension to the same first-party account and governance policy before formal project actions; governed actions fail closed when that connection is unavailable.

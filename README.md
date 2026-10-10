@@ -11,7 +11,7 @@ The separate **`aethmere`** command is only an optional public-benchmark verifie
 Node.js 20 or later is required.
 
 ```bash
-npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.1.tgz
 aethmere-agent --version
 aethmere-agent login --code CODE
 cd your-project
@@ -26,7 +26,7 @@ Continue with the [five-minute quick start](QUICKSTART.md) to save project conte
 
 | Download | Purpose | Install |
 |---|---|---|
-| **Aethmere Agent Client 0.12.0 (`aethmere-agent`)** | Save local project context and connect it to Codex or Claude Code through MCP | `npm install -g https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz` |
+| **Aethmere Agent Client 0.12.1 (`aethmere-agent`)** | Save local project context and connect it to Codex or Claude Code through MCP | `npm install -g https://aethmere.com/downloads/aethmere-agent-client-0.12.1.tgz` |
 | **Aethmere Studio 0.12.0 (Windows x64)** | Optional visual context management and local Ollama chat | Download [`aethmere-studio-0.12.0-windows-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.12.0/aethmere-studio-0.12.0-windows-x64.zip) |
 | **VS Code extension 0.12.0** | Save selected text and inspect local context through the Agent Client | Download [`aethmere-vscode-0.12.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.12.0/aethmere-vscode-0.12.0.vsix) |
 
@@ -47,7 +47,7 @@ Node.js 20 or later is required. `aethmere-agent` is the Aethmere CLI that users
 
 ```bash
 node --version
-npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.1.tgz
 aethmere-agent --version
 aethmere-agent login --code CODE
 cd your-project

@@ -2,7 +2,7 @@ import { checkEvidence, getItem, listItems, projectRoot, readStore } from "./sto
 import { runGovernedCapability } from "./governance-client.mjs";
 
 const PROTOCOL = "2024-11-05";
-const CLIENT_VERSION = "0.12.0";
+const CLIENT_VERSION = "0.12.1";
 
 const TOOLS = [
   {

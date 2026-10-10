@@ -18,11 +18,11 @@ npm --version
 ### 2. 安装 Agent Client
 
 ```bash
-npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.1.tgz
 aethmere-agent --version
 ```
 
-看到 `Aethmere Agent Client 0.12.0` 就表示安装成功。
+看到 `Aethmere Agent Client 0.12.1` 就表示安装成功。
 
 ### 3. 连接 Aethmere 账号
 
@@ -81,7 +81,7 @@ Studio 可以选择项目、创建和勾选本地上下文。若本机已启动 
 code --install-extension aethmere-vscode-0.12.0.vsix
 ```
 
-插件可以把编辑器里选中的文字保存为本地上下文，并显示当前项目已有的条目。插件先以自身 0.12.0 版本完成在线治理，再通过已安装的官方 Agent Client 0.12.0 执行上下文操作；任一层失败都不会继续读取选区或调用正式 Agent 能力。
+插件可以把编辑器里选中的文字保存为本地上下文，并显示当前项目已有的条目。插件先以自身 0.12.0 版本完成在线治理，再通过已安装的官方 Agent Client 0.12.1 执行上下文操作；任一层失败都不会继续读取选区或调用正式 Agent 能力。
 
 ## 可选：核验公开评测和发行文件
 

@@ -5,6 +5,7 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { connectClients } from "../lib/connect.mjs";
 import { runMcpServer } from "../lib/mcp-server.mjs";
+import { runFailureCommand } from "../lib/failure-cli.mjs";
 import {
   checkGovernanceConnection,
   runGovernedCapability,
@@ -74,6 +75,8 @@ function help() {
   console.log("  aethmere-agent connect [--client all|claude|codex] [--check]");
   console.log("  aethmere-agent doctor");
   console.log("  aethmere-agent mcp [--root .]");
+  console.log("  aethmere-agent failure hooks --task TASK [--scope file1,file2] [--root .]");
+  console.log("  aethmere-agent failure resume --task TASK [--root .] --json");
   console.log("");
   console.log("Formal capabilities require an authenticated live connection to app.aethmere.com.");
   console.log("Governance event bodies contain closed result metadata, never context text, prompts, paths or tokens.");
@@ -216,6 +219,8 @@ try {
     help();
   } else if (["version", "--version", "-v"].includes(command)) {
     console.log("Aethmere Agent Client " + packageJson.version);
+  } else if (command === "failure") {
+    print(await runFailureCommand({ args, root: rootFrom(args), bin: process.argv[1] }), true);
   } else if (command === "login") {
     const login = await loginWithDeviceCode(option(args, "code"));
     if (asJson) print({ schema: "aethmere.device-login.v1", ok: true, ...login }, true);

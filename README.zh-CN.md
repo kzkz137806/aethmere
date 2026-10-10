@@ -11,7 +11,7 @@
 需要 Node.js 20 或更高版本。
 
 ```bash
-npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.1.tgz
 aethmere-agent --version
 aethmere-agent login --code CODE
 cd your-project
@@ -26,7 +26,7 @@ aethmere-agent init
 
 | 下载 | 用途 | 安装 |
 |---|---|---|
-| **Aethmere Agent Client 0.12.0（`aethmere-agent`）** | 保存本地项目上下文，并通过 MCP 接入 Codex 或 Claude Code | `npm install -g https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz` |
+| **Aethmere Agent Client 0.12.1（`aethmere-agent`）** | 保存本地项目上下文，并通过 MCP 接入 Codex 或 Claude Code | `npm install -g https://aethmere.com/downloads/aethmere-agent-client-0.12.1.tgz` |
 | **Aethmere Studio 0.12.0（Windows x64）** | 可选的可视化上下文管理 + 本机 Ollama 对话 | 下载 [`aethmere-studio-0.12.0-windows-x64.zip`](https://github.com/kzkz137806/aethmere/releases/download/v0.12.0/aethmere-studio-0.12.0-windows-x64.zip) |
 | **VS Code 插件 0.12.0** | 通过 Agent Client 保存选中文字、查看本地上下文 | 下载 [`aethmere-vscode-0.12.0.vsix`](https://github.com/kzkz137806/aethmere/releases/download/v0.12.0/aethmere-vscode-0.12.0.vsix) |
 
@@ -47,7 +47,7 @@ Studio 与命令行 Agent Client 使用同一份 `.aethmere/context.json`，可�
 
 ```bash
 node --version
-npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.0.tgz
+npm install --global https://aethmere.com/downloads/aethmere-agent-client-0.12.1.tgz
 aethmere-agent --version
 aethmere-agent login --code CODE
 cd your-project
